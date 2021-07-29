@@ -1,0 +1,13 @@
+BEADS
+Texturas suaves
+Texturas duras
+Textura áspera
+Textura suave
+Texturas misturadas
+Cores saturadas
+Cores monocromáticas
+Cores quentes
+Cores frias
+Cores contrastantes
+Cores escuras
+Cores claras

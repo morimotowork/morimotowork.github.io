@@ -1,0 +1,15 @@
+BEADS
+Soft textures
+Hard textures
+Rough texture
+Smooth texture
+Texture mix
+Saturated colors
+Monochromatic colors
+Warm colors
+Cool colors
+Contrasting colors
+Dark colors
+Light colors
+Colors that go with the clothes you're wearing
+Not so dark but not so light colors
