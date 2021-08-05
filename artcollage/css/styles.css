@@ -55,7 +55,8 @@ header #logotype img{
 }
 
 header #logotype {
-    padding: 1%;
+padding: 12px 30px;
+    /*padding: 1%;*/
     background: #fff;
     /*border-bottom: 1.5px solid #000;*/
     z-index: 10;
