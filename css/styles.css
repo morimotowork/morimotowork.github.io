@@ -37,6 +37,8 @@
 
 html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -172,7 +174,7 @@ section#detail .full img {
 p {
     max-width: 500px;
     font-family: "Sneaky", serif;
-    font-size: 1.8em;
+    font-size: 1.6em;
     line-height: 1.1em;
     letter-spacing: -0.02em;
 }
