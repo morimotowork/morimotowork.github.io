@@ -37,8 +37,6 @@
 
 html {
     scroll-behavior: smooth;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -115,6 +113,8 @@ h1 {
     font-family: "neue-haas-grotesk-display", sans-serif;
     font-weight: 400;
     font-size: 4.5em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1 b {
@@ -123,6 +123,7 @@ h1 b {
     font-size: .25em;
     text-transform: uppercase;
     padding: 0 .4em;
+    
 }
 
 section#detail {
