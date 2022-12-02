@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<body id="mapa">
+	<canvas id="espiral"></canvas>
+	<div id="brilho"></div>
+
+<div class="mapablocos">
+<div id="analancman" class="blocomapa">
+	<div class="titulolink possupesq"><h1><a href="home.html">Ana Lancman</a></h1></div>
+<ol class="links">
+	<li><h2><a href="index.html">Index</a></h2></li>
+	<li><h2><a href="#">Sobre</a></h2></li>
+	<li><h2><a href="#" class="linkexterno">Loja</a></h2></li>
+</ol>
+</div>
+<div id="livros" class="blocomapa">
+	<div class="titulolink posdir"><h1><a href="#">Livros</a></h1></div>
+	<ol class="links">
+	<li><h2><a href="#">Costuro Plutão</a></h2>
+		<img class="thumbmapa" alt="" src="imgs/thumbnail1.jpg" />
+	</li>
+	<li><h2><a href="#">Qual pedra abraçar para não ser levada pela correnteza</a></h2>
+	<img class="thumbmapa" alt="" src="imgs/thumbnail2.jpg" />
+	</li>
+</ol>
+</div>
+<div id="ilustracao" class="blocomapa">
+	<div class="titulolink posinf"><h1><a href="#">Ilustração</a></h1></div>
+	<ol class="links">
+		<li><h2><a href="#">À Margem da Gloriosa</a></h2></li>
+		<li><h2><a href="#">Qual pedra abraçar para não ser levada pela correnteza</a></h2></li>
+		<li><h2><a href="#">A Tentação da Bicicleta</a></h2></li>
+	</ol>
+</div>
+<div id="designgrafico" class="blocomapa">
+	<div class="titulolink posdirinf"><h1><a href="#">Design Gráfico</a></h1></div>
+	<ol class="links">
+		<li><h2><a href="#">Mergulho em Apneia</a></h2></li>
+		<li><h2><a href="#">Jornada do Coração Subversivo</a></h2></li>
+		<li><h2><a href="#">Ítalo Aventurato</a></h2></li>
+	</ol>
+</div>
+</div>
+
+<div class="mapalinhas">
+	<div class="mapadetalhes vertical">
+		<div class="detponta">
+		<svg height="14" width="8">
+		<polyline points="0.2,0.1 7.5,12.8 0.2,12.8 7.5,12.8" style="stroke:rgba(0,0,0,0.3);stroke-width:1" />
+		</svg>
+	</div>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<div class="detposicao"><h3>0º</h3></div>
+</div>
+
+<div class="mapadetalhes horizontal">
+	<div class="detposicao"><h3>0º</h3></div>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<span class="detcirculo"></span>
+	<div class="detponta">
+		<svg height="13" width="14">
+		<polyline points="12.9,0 0.3,7.4 0.3,0 0,7.4" style="stroke:rgba(0,0,0,0.3);stroke-width:1" />
+		</svg>
+	</div>
+</div>
+</div>
+
+<script src="scripts/main.js"></script>
+
+	</body>
