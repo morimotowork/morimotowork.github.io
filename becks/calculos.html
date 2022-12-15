@@ -35,8 +35,10 @@ function rangeOfNumbers(a, b, c){
 $('#calcular').click(function(){
     if ($('#min').val().length > 0 && $('#max').val().length > 0 ) {
     rangeOfNumbers($('#min').val(), $('#max').val(), $('input[name="porcento"]:checked').val());
+    } else if ($('#max').val().length === 0 && $('#min').val().length > 0) {
+        rangeOfNumbers($('#min').val(), $('#min').val(), $('input[name="porcento"]:checked').val());
     } else {
-        alert('Erro');
+        alert('Erro, preencha os dados corretamente');
     }
 });
 
