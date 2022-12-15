@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+<input type="number" id="min" name="min" placeholder="Mínimo" required>
+<input type="number" id="max" name="max" placeholder="Máximo" required>
+<input type='radio' value="0.35" name='porcento'>-35%
+<input type='radio' value="0.9" name='porcento'>Entrelinha 90%
+<input type='radio' value="0.8" name='porcento'>Entrelinha 80%
+<input type='radio' value="0" name='porcento' checked="checked">Lista de números
+<button name="calcular" id="calcular">Calcular</button>
+<br />
+<h3>Lista de números</h3>
+<span>Para números maiores de 10</span>
+<p id="numeros">
+</p>
+
+<script>
+    $( document ).ready(function() {
+
+function rangeOfNumbers(a, b, c){
+    $('#numeros').html('');
+ for(a; a<=b; a++){
+    if (c <= 0.35) {
+        var d = a - (a * c);
+  $('#numeros').append(Math.round(d) + ' pt<br />');
+    } else {
+  $('#numeros').append(Math.round(a * c) + ' pt<br />');    
+    }
+ }
+}
+
+$('#calcular').click(function(){
+    if ($('#min').val().length > 0 && $('#max').val().length > 0 ) {
+    rangeOfNumbers($('#min').val(), $('#max').val(), $('input[name="porcento"]:checked').val());
+    } else {
+        alert('Erro');
+    }
+});
+
+});
+
+
+</script>
+
+</body>
+</html>
