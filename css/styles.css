@@ -345,6 +345,10 @@ footer li+li {
         min-height: 100%;
     }
 
+section#detail .full > .half {
+padding: 0;
+}
+
     h1 {
         font-size: 4.35em;
         line-height: .95em;
