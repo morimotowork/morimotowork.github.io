@@ -270,6 +270,10 @@ footer li+li {
     border: 0;
 }
 
+.no-desktop {
+    display: none;
+}
+
 @media only screen and (min-width: 1920px) {
     body {
         border-left: 1px #282828 solid;
@@ -364,6 +368,14 @@ padding: 0;
 
     footer li {
         padding: .6em;
+    }
+
+    .no-desktop {
+        display: block;
+    }
+
+    .no-mobile {
+        display: none;
     }
 }
 
