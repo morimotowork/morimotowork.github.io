@@ -59,6 +59,14 @@ a, a:link, a:visited {
     color: #000;
 }
 
+.dark a, .dark a:link, .dark a:visited {
+    color: #fff;
+}
+
+.dark a:hover {
+    color: #000;
+}
+
 header {
     background-color: #fffc80;
     padding: .3em;
@@ -140,7 +148,7 @@ section#detail div {
 section#detail .quarter, section#detail .third, section#detail .half, section#detail .full {
     padding: .3em;
     box-sizing: border-box;
-    min-height: 100px;
+    
 }
 
 section#detail .quarter{
@@ -334,7 +342,7 @@ footer li+li {
         width: 100%;
         padding: .6em;
         box-sizing: border-box;
-        min-height: 100px;
+        
     }
 
     section#detail .quarter{
