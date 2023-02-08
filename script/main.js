@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     var ano = new Date().getFullYear();
 
-    $( "header#index h1" ).text($( "header#index" ).text().replace("2021", ano));
-    $( "footer").find("h1:last").text($( "footer").find("h1:last").text().replace("2021", ano));
+    $( "header#index h1" ).text($( "header#index h1" ).text() + ano);
+    $( "footer").find("h1:last").text($( "footer").find("h1:last").text() + ano);
 
 });
