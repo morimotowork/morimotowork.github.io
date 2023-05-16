@@ -1,5 +1,13 @@
 @import url("https://use.typekit.net/hrr5itc.css");
 
+
+@font-face {
+    font-family:"neue-haas-grotesk-display";
+    src:url("../fonts/NHaasGroteskDSPro45Lt.woff2") format("woff2"),url("../fonts/NHassGroteskDSPro45Lt.woff") format("woff"),url("../fonts/NHassGroteskDSPro45Lt.otf") format("opentype");
+    font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
+    }
+
+
 /* Thanks to Collletttivo */
 @font-face {
     font-family: "Sneaky";
