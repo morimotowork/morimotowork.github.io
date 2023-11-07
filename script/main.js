@@ -2,17 +2,26 @@ $(document).ready(function() {
 
     if (window.matchMedia( "(min-width: 768px)" ).matches) {
 
-        $("ul#projects li").mousemove(function(){
+        $("ul#projects li").mousemove(function(event){
 
             if(event.pageY > $(window).outerHeight() - $('img', this).outerHeight()){
-                $('img', this).css({"top": event.pageY-$('img', this).outerHeight()-2, "left": event.pageX+2, "display": "block"}); 
+                $('img', this).css({"top": event.pageY-$('img', this).outerHeight()+3, "left": event.pageX+3, "display": "block"}); 
             } else {
-                $('img', this).css({"top": event.pageY+2, "left": event.pageX+2, "display": "block"}); 
+                $('img', this).css({"top": event.pageY+3, "left": event.pageX+3, "display": "block"}); 
             }
 
             $(this).mouseleave(function(){
                 $('img', this).hide(); 
             });
+
+        });
+
+        $("body#home").mousemove(function(e){
+            
+            $('.axis').show();
+$('.axis#x').css({"top": e.pageY + 3});
+$('.axis#y').css({"left": e.pageX + 3});
+
 
         });
 

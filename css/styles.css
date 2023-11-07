@@ -290,6 +290,30 @@ footer li+li {
     display: none;
 }
 
+.axis {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 1px;
+    background-color: #282828;
+    z-index: 2;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.axis#y {
+    position: fixed;
+    width: 1px;
+    height: 100vh;
+}
+
+
+
+
 @media only screen and (min-width: 1920px) {
     body {
         border-left: 1px #282828 solid;
@@ -335,7 +359,7 @@ footer li+li {
     ul#projects li img {
         position: inherit;
         max-width: 16%;
-        box-shadow: none;;
+        box-shadow: none;
         display: inline-block;
         float: left;
         padding: none;
