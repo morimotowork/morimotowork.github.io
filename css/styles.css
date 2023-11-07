@@ -58,6 +58,10 @@ body::-webkit-scrollbar {
     width: scrollbarwidthpx;
 }
 
+body#home, body#home * {
+    cursor: none!important;
+}
+
 iframe {
     width: 100%;
 }
