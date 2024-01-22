@@ -1,0 +1,9 @@
+CONSTRAINTS
+Not so small but not so large shapes
+Don't use blue
+Don't use man images
+Don't use pictures of people smiling
+Small format
+Large format
+Don't use black and white pictures
+Exceed the edge

@@ -1,0 +1,6 @@
+FABRIC
+Soft textures
+Hard textures
+Rough texture
+Smooth texture
+Texture mix

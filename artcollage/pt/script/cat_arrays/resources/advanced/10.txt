@@ -1,0 +1,6 @@
+FEATHERS
+Texturas suaves
+Texturas duras
+Textura áspera
+Textura suave
+Texturas misturadas

@@ -1,0 +1,609 @@
+@import url("https://use.typekit.net/ren8ftg.css");
+
+body {
+    font-family: input-sans, sans-serif;
+    font-weight: 400;
+    margin: 0 auto;
+    background-image: url(../imgs/back_0.png);
+    background-size: 75%;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+h2, h3, b {
+    text-rendering: geometricPrecision!important;
+    letter-spacing: -.01em;
+}
+
+::-moz-selection {
+    background: #ccc;
+}
+
+::selection {
+    background: #ccc;
+}
+
+a:link, a:visited {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+header {
+    background-color: white;
+}
+
+header #lang{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1.2%;
+}
+
+header #lang h3 {
+    font-size: 1.3em;
+}
+
+header #logotype img{
+    max-width: 205px;
+    display: block;
+/*    margin: 0 auto; */
+}
+
+header #logotype {
+padding: 12px 30px;
+    /*padding: 1%;*/
+    background: #fff;
+    /*border-bottom: 1.5px solid #000;*/
+    z-index: 10;
+}
+
+#messages {
+    box-sizing: border-box;
+    padding: 1% 0;
+    width: 100%;
+    color: black;
+    z-index: -10;
+    position: sticky;
+    text-align: center;
+    display: none;
+    transition: all .65s ease;
+    background-color: #ccc;
+    font-size: 1.3em;
+    /* border-top: 1.5px solid #000;
+    border-bottom: 1.5px solid #000; */
+}
+
+section .sec_catg {
+    /*max-width: 1200px;*/
+    margin: 0 auto;
+}
+
+
+h2 {
+    font-family: input-sans, sans-serif;
+    font-weight: 400; 
+    font-size: 1.5em;
+
+}
+
+h3 {
+    font-family: input-sans, sans-serif;
+    font-weight: 400; 
+    font-size: 1.5em;
+}
+
+section {
+    background-color: #FFF;
+}
+
+section#main{
+    width: 200vw;
+    position: absolute;
+    left: -50%;
+    transition: left .65s ease-out;
+}
+
+section#main:hover {
+    transition: all 1s ease;
+}
+
+section h2{
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.sec1 h2 {
+    line-height: 1em;
+}
+
+.sec {
+    width: 100vw;
+    float: left;
+    box-sizing: border-box;
+    border-top: 1.5px solid #000;
+    border-bottom: 1.5px solid #000;
+    height: 35vh;
+}
+
+section#main_cat {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+section#main_cat h2 {
+    font-size: 1.5em;
+}
+
+section#about {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3%;
+    border-top: 1.5px solid #000;
+    border-bottom: 1.5px solid #000;
+
+}
+
+section#about article {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+section#about article p {
+    font-family: input-sans, sans-serif;
+    font-size: 1.8em;
+    font-weight: 400;
+    line-height: 1.4em;
+}
+
+section#about article p b {
+    font-family: input-sans, sans-serif;
+    margin: 0;
+}
+
+section#about article p a:link{
+    text-decoration: underline;
+}
+
+section#about h2 {
+    text-transform: none;
+    line-height: 1.2em;
+}
+
+.sec h2 {
+    /*  max-width: 7em; */
+}
+
+.sec1, .sec2{
+    width: 50vw;
+    height: 100%;
+    float:left;
+    box-sizing: border-box;
+    padding: 0 3%;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sec2 {
+    height: 100%;
+    padding: 0;
+}
+
+.sec2#diff_button {
+    border-left: 1.5px solid #000;
+}
+
+.sec1:first-child {
+    border-left: 1.5px solid #000;
+}
+
+.sec#materials  h2{
+    text-align: center;
+}
+
+.sec#difficulty h2{
+    text-align: center;
+}
+
+.sec2 input {
+    margin: 3%;
+}
+
+.sec2#diff_button ul{
+    width: 100%;
+    height: 100%;
+    float: left;
+
+}
+
+.sec2#diff_button ul li {
+    height: 33%;
+    border-bottom: 1.5px solid #000;
+}
+
+.sec2#diff_button ul li:last-child {
+    height: 33%;
+    border-bottom: none;
+
+}
+
+.sec2#diff_button ul li button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-size: 1.1em;
+    font-family: input-sans, sans-serif;
+    font-size: 1.3em;
+}
+
+.sec2#diff_button ul li button:hover {
+    background-color: #fff;
+}
+
+.sec2#diff_button ul li:last-child button:hover {
+    background-color: #fff;
+    /*border-bottom: 1px solid #000;*/
+}
+
+.sec#materials {
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.sec2#mat_buttons {
+    display: inline-table;
+    border-right: 1.5px solid #000;
+}
+
+.material_button {
+    height: 25%;
+    width: 33.33%;
+    float: left;
+}
+
+.material_button:nth-last-child(-n+3) label span {
+    border-bottom: none;
+}
+
+.material_button:nth-last-child(3n+1) label span {
+    border-right: none;
+}
+
+.material_button label span:hover {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.material_button label span{
+    border-right: 1.5px solid #000;
+    border-bottom: 1.5px solid #000;
+    width: 100%;
+    height: 100%;
+    padding: 1.5% 3%;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: 1.15em;
+
+}
+
+.material_button input:checked + span {
+    background-color: #fff;
+    color: #000;
+}
+
+.material_button label input {
+    display: none;
+}
+
+.back_option {
+    display: none;   
+}
+
+.sec_catg {
+    display: none;
+}
+
+
+.cat {
+    height: max-content;
+    display: none;
+    align-items: center;
+    align-content: center;
+    border-top: 1.5px solid #000;
+}
+
+.easy, .medium, .advanced {
+    display: none;
+}
+
+.cat_name, .cat_content {
+    float: left;
+    padding: 2.5%;
+
+}
+
+.cat_name {
+    width: 30%;
+    /*border-right: 1.5px solid black;*/
+}
+
+.cat_content {
+    width: 70%;
+    border-left: 1.5px solid black;
+}
+
+.cat_options {
+    background-color: #fff;
+    border-bottom: 1.5px solid black;
+    border-top: 1.5px solid black;
+    padding: 1.5%;
+    overflow: auto;
+}
+.cat_options h3 {
+    float: left;
+}
+
+.cat_options h3:last-child {
+    float: right;
+}
+
+.cat_options h3#home_reset:before {
+    content: '↩︎ ';
+}
+
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 12px 30px;
+    width: 100%;
+    background-color: #fff;
+}
+
+footer h3 {
+    float: left;
+}
+
+footer h3:last-child {
+    float: right;
+}
+
+b {
+    font-family: input-sans, sans-serif;
+    margin: auto 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+    }
+
+    body {
+        position: relative;
+        height: 100vh;
+        background-size: 100%;
+        overflow: hidden;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+
+    header #logotype {
+        padding: 15px;
+    }
+
+    header #logotype img {
+        max-width: 185px; 
+        margin: 0;
+    }
+
+    header #lang {
+        padding: 20px 15px;
+    }
+
+    header #lang h3 {
+        font-size: 1.2em;
+    }
+
+    #messages {
+        position: absolute;
+        top: 0;
+        z-index: 10;
+        padding: 20px 10px;
+    }
+
+    section#main{
+        border-top: 1.5px solid #000;
+        left: 0;
+        position: absolute;
+    }
+
+    section h2 {
+        font-size: 1.8em;
+    }
+
+    section#main_cat h2 {
+        font-size: 1.2em;
+    }
+
+    .sec#materials {
+        left: -50%;
+        position: relative;
+    }
+
+    .sec#difficulty {
+        left: 0%;
+        position: relative;
+        display: flex;
+    }
+
+    .sec {
+        width: 200vw;
+        border-top: none;
+        height: 34vh;
+        transition: all .6s ease;
+    }
+
+    .sec1, .sec2 {
+        width: 100vw;
+        border:none;
+        transition: all .6s ease;
+    }
+
+    .sec1 {
+        padding: 0 2%;
+
+    }
+
+    .sec1:first-child {
+        border: none;
+    }
+
+    .cat {
+        border: none;
+        border-bottom: 1.5px solid #000;
+    }
+
+    .cat_content {
+        border: none;
+    }
+
+    .cat_name h2 {
+        font-size: 1.3em;
+        text-transform: uppercase
+    }
+
+    .cat_name, .cat_content{
+        padding: 30px 10px;
+    }
+
+    .cat_content h3 {
+        text-align: right;
+    }
+
+    .cat_options {
+        padding: 20px 30px;
+        background-color: #fff;
+        border: none;
+        border-bottom: 1.5px solid #000;
+    }
+
+    .sec2#diff_button {
+        border: none;
+        float: left;
+    }
+    .sec2#diff_button ul {
+        width: 83.3%;
+        height: 100%;
+    }
+
+    .sec2#diff_button ul li button {
+        font-size: 1.1em;
+    }
+
+    .sec2#diff_button .back_option {
+        width: 16.7%;
+        height: 100%;
+        border-right: 1.5px solid #000;
+        display: grid;
+        align-content: flex-end;
+        padding: 20px 0;
+        z-index: 10;
+    }
+
+    .sec2#diff_button .back_option span:after {
+        content: '←';
+    }
+
+    .back_option {
+        display: block;
+        /* width: 100%; */
+        box-sizing: border-box;
+        height: fit-content;
+        font-size: 2em;
+        text-align: end;
+        float: right;
+    }
+
+    .material_button:nth-last-child(3n+1) label span {
+        border-right: 1.5px solid #000;
+    }
+
+    .sec2#mat_buttons {
+        border: none;
+    }
+
+    .sec2#mat_buttons .back_option {
+        height: 100%;
+        display: flex;
+    }
+
+    .sec2#mat_buttons .back_option span {
+        padding: 0 20px;
+        align-self: center;
+    }
+
+    .sec2#diff_button .back_option span {
+        margin: auto;
+    }
+
+    .sec2#mat_buttons .back_option span:after {
+        content: '→';
+    }
+
+    .material_button label span {
+        font-size: 1em;
+    }
+
+    .material_button label span:hover {
+        background-color: #ccc;
+    }
+
+    footer{
+        clear: both;
+        padding: 15px 10px;
+    }
+
+    section#about {
+        padding: 20px 15px;
+    }
+
+    .sec1 h2 {
+        line-height: 1.1em;
+    }
+
+    .pt h2 {
+        line-height: 1.3em;
+    }
+
+    section#about h2{
+        font-size: 2em;
+        text-align: left;
+    }
+
+    section#about article p {
+        font-size: 1.2em;
+        line-height: 1.3em;
+    }
+
+    section#main_cat {
+        border-top: 1.5px solid #000;
+    }
+
+}
