@@ -1,11 +1,25 @@
 @import url("https://use.typekit.net/hrr5itc.css");
 
+    @font-face {
+        font-family:"neue-haas-grotesk-display";
+        src:url("../fonts/NHaasGroteskDSPro45Lt.woff2") format("woff2"),url("../fonts/NHassGroteskDSPro45Lt.woff") format("woff"),url("../fonts/NHassGroteskDSPro45Lt.otf") format("opentype");
+        font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
+        }
 
-@font-face {
-    font-family:"neue-haas-grotesk-display";
-    src:url("../fonts/NHaasGroteskDSPro45Lt.woff2") format("woff2"),url("../fonts/NHassGroteskDSPro45Lt.woff") format("woff"),url("../fonts/NHassGroteskDSPro45Lt.otf") format("opentype");
-    font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
-    }
+
+        @font-face {
+            font-family:"NaNTresorSwashExtraLight";
+            src:url("../fonts/NaNTresorSwash-ExtraLight.woff2") format("woff2");
+            font-style:normal;
+            font-weight:400;
+            }
+
+            @font-face {
+                font-family:"NaNTresorLExtraLight";
+                src:url("../fonts/NaNTresorL-ExtraLight.woff2") format("woff2");
+                font-style:normal;
+                font-weight:400;
+                }
 
 
 /* Thanks to Collletttivo */
@@ -15,6 +29,11 @@
         url("../fonts/Sneaky-Times.woff") format("woff");
 }
 
+:root {
+--cinzinha: #e8e8e8;
+--amarelinha: #e8e8e8;
+}
+
 * {
     margin: 0;
 }
@@ -22,9 +41,9 @@
 ::selection {
     background: #ccc;
 }
-
+/*
 ::-webkit-scrollbar {
-    width: 2em;
+    width: 2rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -33,7 +52,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #fffc80;
+    background-color: var(--amarelinha);
     border: 1px #282828 solid;
     border-right: none;
 
@@ -42,9 +61,10 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #ccc;
 }
-
+*/
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
@@ -54,13 +74,25 @@ body {
     margin: 0 auto;
 }
 
+body#mensagem {
+    background-image: url(../imgs/pontinhos.jpg);
+    background-size: 300px 300px;
+    padding: 5px;
+}
+
+body#mensagem * {
+    color: var(--cinzinha);
+}
+
 body::-webkit-scrollbar {
     width: scrollbarwidthpx;
 }
 
+/*
 body#home, body#home * {
     cursor: none!important;
 }
+*/
 
 iframe {
     width: 100%;
@@ -80,41 +112,100 @@ a, a:link, a:visited {
 }
 
 header {
-    background-color: #fffc80;
-    padding: .3em;
+    background-color: var(--amarelinha);
+    padding: .5rem 1rem;
     border-bottom: 1px #282828 solid;
     border-top: 1px #282828 solid;
     box-sizing: border-box;
-    text-transform: uppercase;
     width: 100%;
+    z-index: 10;
+}
+
+
+header h1 {
+    color: #000;
 }
 
 header#index {
     position: sticky;
     top: 0;
+    text-transform: uppercase;
 }
 
-ul#projects {
+ul.projects {
     background-color: #fff;
     box-sizing: border-box;
 }
 
-ul#projects li {
-    padding: .3em;
+ul.projects li {
+    padding: .5rem 1rem;
     border-bottom: 1px #282828 solid;
     box-sizing: border-box;
+    background-color: #fff;
 }
 
-ul#projects li:last-child {
-    border: none;
+ul.projects li:first-child {
+    position: sticky;
+    top: calc(4.8rem + 1rem + 2px);
+    cursor: s-resize;
 }
 
-ul#projects li:hover{
-    background-color: #fffc80;
+ul.projects.active li:first-child {
+    cursor: n-resize;
+    background-color: var(--amarelinha);
+}
+
+ul.projects li:first-child:hover {
+
+}
+
+ul.projects li:first-child h1 {
+    color: #000;
+}
+
+ul.projects:not(.active) li:not(:first-child) {
+    font-size: 0;
+    opacity: 0;
+    padding: 0;
+    border-width: 0;
+    transition: opacity .25s, padding .5s .25s ease, border-width .5s .25s ease, font-size .5s .25s;
+    pointer-events: none;
+}
+
+ul.projects:not(.active) li:first-child:hover ~ li {
+    font-size: 2.5rem;
+    opacity: 1;
+    padding: .5rem 1rem;
+    border-width: 1px;
+    transition: opacity .25s, padding .5s .25s ease, border-width .5s .25s ease, font-size .75s .25s;
+}
+
+ul.projects.active li:not(:first-child) {
+    font-size: 4.5rem;
+    opacity: 1;
+    padding: .5rem 1rem;
+    border-width: 1px;
+    transition: font-size .75s ease, padding .25s ease, border-width .25s ease, opacity .5s .25s ease;
+}
+
+ul.projects:not(.active) li:not(:first-child) h1 b {
+    display: none;
+}
+
+ul.projects li:not(:first-child) h1 {
+    font-size: inherit;
+}
+
+ul.projects li:hover{
+    background-color: var(--amarelinha);
     transition: .1s ease;
 }
 
-ul#projects li img {
+ul.projects li:hover h1{
+    color: #000;
+}
+
+ul.projects li img {
     position: absolute;
     max-width: 350px;
     z-index: 99;
@@ -124,30 +215,48 @@ ul#projects li img {
     background-color: #fff;
 }
 
-ul#projects li h1::before {
+ul.projects li:first-child h1::before {
     content: "M";
     visibility: hidden;
 }
 
-h1 {
-    font-family: "neue-haas-grotesk-display", sans-serif;
-    font-weight: 400;
-    font-size: 4.5em;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+ul.projects li:not(:first-child) h1 {
+    margin-left: 10rem;
 }
 
-h1 b {
-    font-weight: 500;
-    color: #282828;
-    font-size: .25em;
+ul.projects li h1::before {
+    /*content: "MW";
+    visibility: hidden;*/
+}
+
+h1 {
+    font-family: "NaNTresorLExtraLight", sans-serif;
+    font-size: 4.8rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.05rem;
+    color: var(--cinzinha);
+}
+
+h1.swash {
+    font-family: "NaNTresorSwashExtraLight", sans-serif;
+    font-feature-settings: "ss02" 0, "swsh" 0, "cswh" 0, "cv05" 0, "cv12" 0, "cv21" 0, "cv24", "cv28" 0, "cv40" 0, "cv48" 0, "cv61" 0, "cv63" 0;
+    letter-spacing: 0;
+}
+
+h1 b, p b {
+    font-weight: 600;
+    font-size: .8rem;
     text-transform: uppercase;
-    padding: 0 .4em;
+    padding: 0.4rem;
+    letter-spacing: .025rem;
+    font-family: "neue-haas-grotesk-display", sans-serif;
     
 }
 
 section#detail {
-    padding: .3em;
+    padding: .5rem;
     box-sizing: border-box;
     width: 100%;
     float: left;
@@ -158,7 +267,7 @@ section#detail div {
 }
 
 section#detail .quarter, section#detail .third, section#detail .half, section#detail .full {
-    padding: .3em;
+    padding: .5rem;
     box-sizing: border-box;
     
 }
@@ -195,16 +304,9 @@ section#detail .full img {
 p {
     max-width: 500px;
     font-family: "Sneaky", serif;
-    font-size: 1.6em;
-    line-height: 1.1em;
-    letter-spacing: -0.02em;
-}
-
-p b {
-    font-family: "neue-haas-grotesk-display", sans-serif;
-    font-weight: 500;
-    font-size: .62em;
-    text-transform: uppercase;
+    font-size: 1.2rem;
+    line-height: 115%;
+    letter-spacing: -0.02rem;
 }
 
 p a:link {
@@ -212,13 +314,19 @@ p a:link {
 }
 
 p a:hover {
-    background-color: #fffc80;
+    background-color: var(--amarelinha);
 }
 
+p b {
+    margin-left: 2.5rem;
+    padding: 0;
+}
+
+/*
 p+p {
-    text-indent: 2.5em;
+    text-indent: 2.5rem;
 }
-
+*/
 sup {
     vertical-align: super;
     font-size: smaller;
@@ -231,20 +339,28 @@ footer {
     display: inline-block;
 }
 
+body#home footer {
+    border-top: none;
+}
+
+footer h1 {
+    color: #000;
+}
+
 footer li {
     width: 100%;
-    padding: .3em;
+    padding: 0.5em 1rem;
     box-sizing: border-box;
 }
-
-footer li:first-child:hover {
-    background-color: #fffc80;
+/*
+footer li:hover {
+    background-color: var(--amarelinha);
 }
 
-footer li:last-child:hover {
+footer li:hover {
     background-color: #fff;
 }
-
+*/
 footer li+li {
     border-top: 1px #282828 solid;
 }
@@ -331,36 +447,36 @@ footer li+li {
     }
 
     header {
-        padding: .6em;
+        padding: .6rem;
     }
 
 
-    ul#projects li {
+    ul.projects li {
         float: left;
         display: inline-block;
-        padding: .6em;
+        padding: .6rem;
         width: 100%;
     }
 
-    ul#projects li h1 {
+    ul.projects li h1 {
         float: left;
         display: inline-block;
         width: 84%;
         max-width: 84%;
         box-sizing: border-box;
-        padding-left: .85em;
+        padding-left: .85rem;
     }
 
 
-    ul#projects li h1::before {
+    ul.projects li h1::before {
         content: none;
     }
 
-    ul#projects li h1 b {
+    ul.projects li h1 b {
         display: none;
     }
 
-    ul#projects li img {
+    ul.projects li img {
         position: inherit;
         max-width: 16%;
         box-shadow: none;
@@ -371,12 +487,12 @@ footer li+li {
     }
 
     section#detail {
-        padding: .6em;
+        padding: .6rem;
     }
 
     section#detail .quarter, section#detail .third, section#detail .half, section#detail .full {
         width: 100%;
-        padding: .6em;
+        padding: .6rem;
         box-sizing: border-box;
         
     }
@@ -398,20 +514,20 @@ padding: 0;
 }
 
     h1 {
-        font-size: 4.35em;
-        line-height: .95em;
+        font-size: 5.5rem;
+        line-height: 105%;
     }
 
     p {
-        font-size: 2.1em;
+        font-size: 2.1rem;
     }
 
     p b {
-        font-size: .8em;
+        font-size: .8rem;
     }
 
     footer li {
-        padding: .6em;
+        padding: .6rem;
     }
 
     .no-desktop {

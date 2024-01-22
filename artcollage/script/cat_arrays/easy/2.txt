@@ -1,8 +1,0 @@
-CONTEXT
-Magazine
-Book
-CD Cover
-Poster
-Newspaper
-DVD Cover
-Advertising

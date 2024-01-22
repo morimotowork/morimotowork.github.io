@@ -1,8 +1,0 @@
-CONTEXTO
-Revista
-Livro
-Capa de CD
-Pôster
-Jornal
-Capa para DVD
-Anúncio de publicidade

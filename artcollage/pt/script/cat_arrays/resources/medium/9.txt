@@ -1,7 +1,0 @@
-RIBBONS
-Formas retas
-Formas curvas
-Formas abstratas
-Formas reconhecíveis
-Formas vazadas
-Formas pontiagudas
