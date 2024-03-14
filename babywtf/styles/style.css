@@ -20,7 +20,8 @@ body {
 html, body {
   width: 100vw;
   height: 100vh;
-  height: 100lvh;
+  height: 100dvh;
+  max-height: 100lvh;
   overflow: hidden;
 }
 
@@ -189,6 +190,10 @@ span {
   :root {
     --repeticaotam: 9vw;
     --tilesize: calc(20px / 2);
+  }
+
+  html, body {
+    overflow-y: scroll;
   }
   
   }
