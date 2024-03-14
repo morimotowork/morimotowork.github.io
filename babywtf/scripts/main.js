@@ -77,8 +77,15 @@ const mouseFunction = (mouse) => {
   const canvasYinvert = document.body.clientHeight - (clientY + 140 * 0.474) + (140 * 0.474) - 20;
 
   if (canvasX > 0 && canvasX < width && canvasY > 0 && canvasY < height) {
-    ctx.clearRect(canvasX - 20, canvasY - 20, 40, 40);
-    ctx.clearRect(canvasXinvert - 20, canvasY - 20, 40, 40);
+
+    if(window.matchMedia("(max-width: 742px)").matches) {
+      ctx.clearRect(canvasX - 10, canvasY - 10, 20, 20);
+      ctx.clearRect(canvasXinvert - 10, canvasY - 10, 30, 20);
+    } else {
+      ctx.clearRect(canvasX - 20, canvasY - 20, 40, 40);
+      ctx.clearRect(canvasXinvert - 20, canvasY - 20, 40, 40);
+    }
+
 
   }
 };

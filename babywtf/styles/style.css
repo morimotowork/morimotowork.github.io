@@ -4,6 +4,7 @@
   --margem: 8px;
   --repeticaotam: 3vw;
   --tipouniversal: 9px;
+  --tilesize: calc(40px / 2);
 }
 
 html {
@@ -20,7 +21,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /*** TIPOGRAFIA ***/
@@ -71,7 +72,7 @@ span {
 .mosaico-cursor {
   position: absolute;
   z-index: 2;
-  top: calc(var(--top) - 20px - ((140px * 0.4741) / 2));
+  top: calc(var(--top) - var(--tilesize) - ((140px * 0.4741) / 2));
   left: calc(var(--left) - ((140px * 0.4741) * 1.457) / 2);
   width: calc((140px * 0.4741) * 1.457);
   height: calc(140px * 0.4741);
@@ -179,8 +180,8 @@ span {
 @media screen and (max-width: 742px) {
 
   :root {
-    --tipouniversal: 10px;
     --repeticaotam: 9vw;
+    --tilesize: calc(20px / 2);
   }
   
   }
