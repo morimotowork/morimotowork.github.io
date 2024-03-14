@@ -20,7 +20,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /*** TIPOGRAFIA ***/
@@ -41,16 +41,6 @@ span {
   overflow: hidden;
   height: 100%;
   width: 100%;
-}
-
-@media screen and (max-width: 500px) {
-  .mosaico {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .mosaico-cursor {
-    transform: scale(0.8);
-  }
 }
 
 .mosaico_pixel {
