@@ -6,6 +6,24 @@ $(document).ready(function () {
     $('#horario').text(new Date().toLocaleTimeString() + ' ' + new Date().toString().match(/([A-Z]+[\+-][0-9]+)/)[1]);
 }, 1000);
 
+var getNumber = (function() {
+  var previous = NaN;
+  return function() {
+    var min = 0;
+    var max = 4 + (!isNaN(previous) ? -1 : 0);
+    var value = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (value >= previous) {
+      value += 1;
+    }
+    previous = value;
+    return value;
+  };
+})();
+
+$('body').click(function(){
+  $('.mosaico-fundo').css('background-image', 'url(imgs/gifs/' + getNumber() + '.gif)');
+});
+
 });
 
 
