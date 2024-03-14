@@ -134,6 +134,13 @@ $(function(){
   });
   
   doc.mousemove($.throttle(50,followMouse));
+
+  doc.touchmove(function(mouse){
+    x = mouse.touches[0].clientX;
+    y = mouse.touches[0].clientX;
+  });
+  
+  doc.touchmove($.throttle(50,followMouse));
   
   doc.on({
     mouseleave : function(){ reset(); },
