@@ -20,7 +20,7 @@ body {
 html, body {
   width: 100vw;
   height: 100vh;
-  height: 100dvh;
+  height: 100lvh;
   overflow: hidden;
 }
 
@@ -83,6 +83,7 @@ span {
   width: calc((140px * 0.4741) * 1.457);
   height: calc(140px * 0.4741);
   pointer-events: none;
+  visibility: hidden;
 }
 
 .mosaico-cursor-base {

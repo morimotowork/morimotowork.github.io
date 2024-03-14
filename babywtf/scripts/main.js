@@ -24,9 +24,6 @@ $('body').click(function(){
   $('.mosaico-fundo').css('background-image', 'url(imgs/gifs/' + getNumber() + '.gif)');
 });
 
-});
-
-
 const raspagemPixel = document.getElementById("mosaico");
 const cursor = document.getElementById("cursor");
 const cursor2 = document.getElementById("cursor2");
@@ -80,12 +77,13 @@ const calculateTransparency = () => {
 };
 
 const mouseFunction = (mouse) => {
+
   // Move cursor
   const clientX = mouse.clientX ? mouse.clientX : mouse.touches[0].clientX;
   const clientY = mouse.clientY ? mouse.clientY : mouse.touches[0].clientY;
-  cursor.style = `--top: ${clientY}px; --left: ${clientX}px;`;
+  cursor.style = `--top: ${clientY}px; --left: ${clientX}px; visibility: visible;`;
   // Scratch
-  cursor2.style = `bottom: ${clientY - (140 * 0.474) / 2 - 20}px; --left: ${document.body.clientWidth - (clientX + (140 * 0.474) * 1.457) + ((140 * 0.474) * 1.457)}px;`;
+  cursor2.style = `bottom: ${clientY - (140 * 0.474) / 2 - 20}px; --left: ${document.body.clientWidth - (clientX + (140 * 0.474) * 1.457) + ((140 * 0.474) * 1.457)}px; visibility: visible;`;
   // Scratch
   const canvasPosition = canvas.getBoundingClientRect();
   const canvasX = clientX - canvasPosition.left;
@@ -168,6 +166,8 @@ $(function(){
   });
     
   });
+
+});
   
   /*
    * jQuery throttle / debounce - v1.1 - 3/7/2010
