@@ -136,16 +136,14 @@ $(function(){
   doc.mousemove($.throttle(50,followMouse));
 
 
-
-  doc.touchmove(function(mouse){
+  window.addEventListener("touchmove", function(mouse){
     x = mouse.clientX ? mouse.clientX : mouse.touches[0].clientX;
     y = mouse.clientY ? mouse.clientY : mouse.touches[0].clientY;
   });
-  
-  doc.touchmove($.throttle(50,followMouse));
-  
 
-  
+  window.addEventListener("touchmove", $.throttle(50,followMouse));  
+
+
   doc.on({
     mouseleave : function(){ reset(); },
     mousedown : function(){ reset(); }
