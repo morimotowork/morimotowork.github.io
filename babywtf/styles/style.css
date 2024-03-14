@@ -24,6 +24,12 @@ html, body {
   overflow: hidden;
 }
 
+::selection {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  -webkit-text-stroke-color: #fff;
+}
+
 /*** TIPOGRAFIA ***/
 
 span {
