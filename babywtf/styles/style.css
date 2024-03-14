@@ -1,0 +1,195 @@
+/*** UNIVERSAL ***/
+
+:root {
+  --margem: 8px;
+  --repeticaotam: 3vw;
+  --tipouniversal: 9px;
+}
+
+html {
+  font-size: var(--tipouniversal);
+  font-family: a-otf-jun-pro, sans-serif;
+  letter-spacing: .07rem;
+}
+
+body {
+    cursor: none;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/*** TIPOGRAFIA ***/
+
+span {
+  line-height: 135%;
+ /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
+ -webkit-text-stroke-width: .04rem;
+  -webkit-text-stroke-color: #000;
+}
+
+
+
+/** MOSAICO **/
+
+.mosaico {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .mosaico {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .mosaico-cursor {
+    transform: scale(0.8);
+  }
+}
+
+.mosaico_pixel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.mosaico-fundo, .mosaico-principal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mosaico-fundo {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  background-image: url(../imgs/gifs/beads.gif);
+  background-size: var(--repeticaotam);
+}
+
+.mosaico--ready .mosaico-fundo {
+  display: flex;
+}
+.mosaico-cursor {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--top) - 20px - ((140px * 0.4741) / 2));
+  left: calc(var(--left) - ((140px * 0.4741) * 1.457) / 2);
+  width: calc((140px * 0.4741) * 1.457);
+  height: calc(140px * 0.4741);
+  pointer-events: none;
+}
+
+.mosaico-cursor-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../imgs/cursor.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.8));
+  filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.8));
+
+}
+
+#cursor2 .mosaico-cursor-base {
+  background-image: url(../imgs/cursorinvert.svg); 
+}
+
+@supports (-webkit-hyphens: none) {
+  .mosaico-cursor-base {
+    outline: none;
+  }
+}
+
+
+
+/*** CABECALHO E RODAPE ***/
+
+.cabecalho, footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: var(--margem);
+  box-sizing: border-box;
+}
+
+.cabecalho {
+  top: 0;
+  bottom: initial;
+  font-size: 1.7rem;
+}
+
+.cabecalho *, footer * {
+  background: #fff;
+  display: inline-block;
+  margin-bottom: .25rem;
+  padding: 0 .3rem;
+  box-shadow: 3px 3px 10px black;
+}
+
+
+
+/*** LOGO ***/
+
+#logo {
+  width: 140px;
+  height: calc(140px * 1.2511);
+  background-image: url(../imgs/logo.png);
+  background-size: cover;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+#logo::selection {
+  color: none;
+  background: none;
+}
+
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+
+
+/*** DISPLAYS MENORES ***/
+
+@media screen and (max-width:1024px) {
+
+:root {
+  --repeticaotam: 5vw;
+}
+
+}
+
+
+
+/*** MOBILE ***/
+
+@media screen and (max-width: 742px) {
+
+  :root {
+    --tipouniversal: 10px;
+    --repeticaotam: 9vw;
+  }
+  
+  }
