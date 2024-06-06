@@ -3,7 +3,7 @@
 }
 
 html {
-    font-family: 'Times New Roman', Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 body {
@@ -34,56 +34,57 @@ table {
 }
 
 table, th, td {
-    border: 1px solid darkgray;
-  }
+  border: 1px solid darkgray;
+}
 
-  table {
-    width: 100%;
-    filter: drop-shadow(1px 1px 0px black);
-  }
+table {
+  width: 100%;
+  filter: drop-shadow(1px 1px 0px black);
+}
 
-  th, td {
-    background: white;
-  }
+th, td {
+  background: white;
+}
 
-  td {
-    text-align: center;
-  }
+td {
+  text-align: center;
+}
 
-  td:has(img) {
-    text-align: center;
-  }
+td:has(img) {
+  text-align: center;
+}
 
-  td img, td video, td iframe {
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-  }
+td img, td video, td iframe {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
 
-  .lista td img {
-    max-width: 50px;
-  }
+.lista td img {
+  max-width: 50px;
+}
 
-  table:not(#grafico, #infos) tr:hover td {
-    background-color: var(--amarelinho);
-  }
+table:not(#grafico, #infos) tr:hover td {
+  background-color: var(--amarelinho);
+}
 
-  table:not(#grafico, #infos) tr:hover ::selection {
-    background-color: #fff!important;
-  }
+table:not(#grafico, #infos) tr:hover ::selection {
+  background-color: #fff !important;
+}
 
-  #web td {
-    width: 25%;
-  }
+#web td {
+  width: 25%;
+}
 
-  #web td:nth-last-child(-n+2) {
-    width: calc(25% / 2);
-  }
+#web td:nth-last-child(-n+2) {
+  width: calc(25% / 2);
+}
 
-  #web td {
-    width: 25%;
-  }
+#web td {
+  width: 25%;
+}
 
-  #extra td:nth-last-child(-n+2) {
-    width: calc(25% / 2);
-  }
+#extra td:nth-last-child(-n+2) {
+  width: calc(25% / 2);
+}
