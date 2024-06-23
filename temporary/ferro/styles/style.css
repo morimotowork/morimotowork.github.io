@@ -79,7 +79,7 @@ a:link:hover {
 /* GERAL */
 body {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background: #fff;
 }
@@ -89,7 +89,7 @@ body {
 article {
     position: relative;
     z-index: 3;
-    height: 100vh;
+    height: 100dvh;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: min-content;
@@ -280,6 +280,12 @@ main.sobre-aberto ~ .grid-bola {
 
 @media screen and (max-width: 742px) {
 
+    :root {
+        /* UNIDADES DE ESPAÇAMENTO */
+        --1un: 20px;
+        --2un: 40px;
+    }
+
     html {
         font-size: 16.5px;
     }
@@ -384,7 +390,7 @@ main.sobre-aberto ~ .grid-bola {
     .wrapper-membros {
         display: block;
         grid-column: 2 / -1;
-        height: calc(100vh);
+        height: calc(100dvh);
         padding: var(--1un) 0;
         box-sizing: border-box;
         margin-top: calc(var(--1un)* -1);
