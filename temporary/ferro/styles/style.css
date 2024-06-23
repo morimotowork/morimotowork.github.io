@@ -367,7 +367,7 @@ main.sobre-aberto ~ .grid-bola {
     /* LOGO VERTICAL */
     .logo {
         height: calc(100dvh - var(--2un));
-        width: calc((100dvh - var(--2un))* 0.077);
+        width: calc((100dvh - var(--2un))* 0.08);
         grid-column: 1 / 2;
         background-image: url(../imgs/logo/FERRO_LogoHeader_vert.svg);
     }
@@ -406,7 +406,7 @@ main.sobre-aberto ~ .grid-bola {
 
     nav {
         width: calc(100% - var(--1un) * 2);
-        grid-template-columns: minmax(calc((100dvh - var(--2un))* 0.077), 1fr) repeat(4, 1fr);
+        grid-template-columns: minmax(calc((100dvh - var(--2un))* 0.08), 1fr) repeat(4, 1fr);
     }
 
     nav * {
