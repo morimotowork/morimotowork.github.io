@@ -1,0 +1,413 @@
+:root {
+
+    /* UNIDADES DE ESPAÇAMENTO */
+    --1un: 30px;
+    --2un: 60px;
+
+    /* CORES */
+    --cinza: #656565;
+
+    /* MAP POS BOLA */
+    --maptopbola: 0;
+    --mapleftbola: 0;
+}
+
+
+*::selection {
+    background-color: var(--cinza);
+}
+
+*::-webkit-scrollbar {
+    display: none;
+  }
+
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+html {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    user-select: none;
+    pointer-events: none;
+}
+
+/* TIPOGRAFIA */
+p {
+    line-height: 130%;
+    max-width: 380px;
+}
+
+p.p-menor {
+    font-size: 13.5px;
+    line-height: 140%;
+}
+
+p + p, img + p {
+    margin-top: 1rem;
+}
+
+p + img {
+    margin-top: .5rem;
+}
+
+a, a:link {
+    text-decoration: underline;
+    color: inherit;
+    text-underline-offset: 3px;
+    text-decoration-thickness: .03rem;
+}
+
+a:hover {
+    color: var(--cinza);
+    cursor: pointer;
+}
+
+a:link:hover {
+    cursor: ne-resize;
+}
+
+
+/* GERAL */
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #fff;
+}
+
+
+/* HEADER */
+article {
+    position: relative;
+    z-index: 3;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: min-content;
+    column-gap: var(--1un);
+    row-gap: var(--2un);
+    padding: var(--1un);
+    background-color: #fff;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+}
+
+article.main {
+    background-color: #000;
+}
+
+.info {
+    grid-column: span 2;
+}
+
+header {
+width: 100%;
+display: contents;
+}
+
+
+.logo {
+    width: 100%;
+    height: calc(((100vw - var(--1un) * 6) / 5) * 0.42);
+    grid-column: span 1;
+    background-image: url(../imgs/logo/f-logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: .95;
+}
+
+.logo.e-logo {
+    background-image: url(../imgs/logo/e-logo.svg);
+}
+
+.logo.r-logo {
+    background-image: url(../imgs/logo/r-logo.svg);
+}
+
+.logo.o-logo {
+    background-image: url(../imgs/logo/o-logo.svg);
+}
+
+/* SOBRE */
+article.info {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    color: #000;
+    z-index: 1;
+    transform-origin: 100% 100%;
+    transform: scaleY(0);
+    row-gap: var(--2un);
+}
+
+article.info header {
+    display: none;
+}
+
+.wrapper-membros {
+    display: contents;
+}
+
+.membro {
+    width: 380px;
+    grid-column: span 1;
+}
+
+.membro img, .membro video {
+    width: 100%;
+}
+
+
+
+/* SIDEBAR */
+nav, .logo-alt {
+    z-index: 3;
+    mix-blend-mode: exclusion;
+    position: fixed;
+    right: var(--1un);
+    top: calc(var(--1un) * 3 + ((100vw - var(--1un) * 6) / 5) * 0.42);
+    width: calc((100vw - var(--1un) * 6) / 5);
+}
+
+nav img#maozinha {
+    width: 120px;
+}
+
+.logo-alt {
+    mix-blend-mode: normal;
+    top: var(--1un);
+    height: calc(var(--1un) + ((100vw - var(--1un) * 6) / 5) * 0.42);
+    background-image: url(../imgs/logos-alt/FERRO_LogoBootleg_0.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+nav #sobre::after {
+    content: 'SOBRE';
+}
+
+
+/* SOBRE ABERTO */
+main * {
+    transition: transform .7s ease;
+}
+
+main.sobre-aberto article.main {
+    transform: scaleY(0);
+}
+
+main.sobre-aberto article.info {
+    transform: scaleY(1);
+}
+
+main.sobre-aberto ~ nav #sobre::after {
+    content: 'FECHAR';
+}
+
+main.sobre-aberto ~ .grid-bola {
+    transition: opacity .3s ease;
+    opacity: 0;
+}
+
+
+/* BOLA */
+.grid-bola {
+    opacity: 1;
+    pointer-events: none;
+    display: none;
+    position: fixed;
+    top: calc((100vw / 6) * var(--maptopbola));
+    left: calc((100vw / 6) * var(--mapleftbola));
+    z-index: 3;
+    width: calc(100vw / 6);
+    height: calc(100vw / 6);
+    background: url(../imgs/bola-ferro.gif);
+    background-size: contain;
+    transition: opacity .4s ease .3s;
+}
+
+
+
+/* DISPLAYS MENORES */
+@media screen and (max-width: 1024px) {
+
+    article {
+        overflow-y: auto;
+    }
+
+    /* HEADER */
+    header .logo:not(:first-child) {
+        display: none;
+    }
+
+    .logo {
+        height: calc(100vw * 0.077);
+        grid-column: 1 / -1;
+        background-image: url(../imgs/logo/FERRO_LogoHeader.svg);
+    }
+
+    /* CORPO */
+
+    .info {
+        grid-column: span 3;
+    }
+
+    .membro {
+        grid-column: 1 / -1;
+    }
+
+    /* SIDEBAR */
+    nav {
+        top: calc(var(--1un)* 3 + calc(100vw* 0.077));
+    }
+
+    nav, .logo-alt {
+        width: calc(((100vw - var(--1un)* 6) / 5 + var(--2un)));
+    }
+
+}
+
+@media screen and (max-width: 742px) {
+
+    html {
+        font-size: 16.5px;
+    }
+
+    a:hover {
+        color: inherit;
+    }
+
+    article {
+        row-gap: var(--1un);
+    }
+
+    .info {
+        grid-column: 1 / -1;
+    }
+
+    .logo-alt {
+        display: none;
+    }
+
+    nav {
+        width: calc(100% - var(--2un));
+        height: auto;
+        bottom: var(--1un) !important;
+        top: initial;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: min-content;
+        column-gap: var(--1un);
+    }
+
+    nav * {
+        grid-column: 1 / 3;
+    }
+
+    nav p:last-child {
+        grid-column: 3 / 4;
+        grid-row: 1 / -1;
+        margin: 0;
+    }
+
+    .membro {
+        width: 100%;
+    }
+
+    main.sobre-aberto ~ nav {
+        mix-blend-mode: normal;
+        color: #000;
+    }
+
+    nav * {
+        transition: opacity .4s ease .3s;
+    }
+
+    main.sobre-aberto ~ nav *:not(:last-child) {
+        transition: opacity .4s ease;
+        opacity: 0;
+    }
+
+    .grid-bola {
+        display: block!important;
+        opacity: 1;
+        width: calc(100vw - var(--2un)* 2);
+        height: calc(100vw - var(--2un)* 2);
+        left: var(--2un);
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: auto;
+    }
+
+    .grid-bola.hide {
+        opacity: 0;
+        transition: opacity .4s ease;
+        pointer-events: none;
+    }
+
+
+    /* LOGO VERTICAL */
+    .logo {
+        height: calc(100dvh - var(--2un));
+        width: calc((100dvh - var(--2un))* 0.077);
+        grid-column: 1 / 2;
+        background-image: url(../imgs/logo/FERRO_LogoHeader_vert.svg);
+    }
+
+    article.info {
+        overflow: hidden;
+    }
+
+    article.info header {
+        display: block;
+    }
+
+    article.info .logo {
+        background-image: url(../imgs/logo/FERRO_LogoHeader_vert_preto.svg);
+    }
+
+    .info {
+        grid-column: 2 / -1;
+    }
+
+    .wrapper-membros {
+        display: block;
+        grid-column: 2 / -1;
+        height: calc(100vh);
+        padding: var(--1un) 0;
+        box-sizing: border-box;
+        margin-top: calc(var(--1un)* -1);
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+    }
+
+    .membro + .membro {
+        margin-top: var(--2un);
+    }
+
+    nav {
+        width: calc(100% - var(--1un) * 3 - (100dvh - var(--2un)) * 0.077);
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    nav * {
+        grid-column: 1 / 3;
+    }
+
+    nav p:last-child {
+        grid-column: 4 / 5;
+    }
+
+}
