@@ -232,8 +232,12 @@ main.sobre-aberto ~ .grid-bola {
     z-index: 3;
     width: calc(100vw / 6);
     height: calc(100vw / 6);
-    background: url(../imgs/bola-ferro.gif);
+    background: url(../imgs/FERRO_Bola.gif);
     background-size: contain;
+    mask-image: url(../imgs/FERRO_BolaMask.svg);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
     transition: opacity .4s ease .3s;
 }
 
