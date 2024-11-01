@@ -10,6 +10,7 @@ body {
   background-image: url(../imgs/pontinhos.jpg);
   background-size: 300px 300px;
   line-height: 121%;
+  min-width: 800px;
 }
 
 ::selection {
