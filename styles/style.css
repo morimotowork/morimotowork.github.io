@@ -71,7 +71,7 @@ table:not(#grafico, #infos) tr:hover td {
   background-color: var(--amarelinho);
 }
 
-table:not(#grafico, #infos) tr:hover ::selection {
+table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selection {
   background-color: #fff !important;
 }
 
