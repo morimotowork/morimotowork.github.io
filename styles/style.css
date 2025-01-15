@@ -12,6 +12,7 @@ body {
   background-size: 300px 300px;
   line-height: 121%;
   min-width: 900px;
+  margin: 10px;
 }
 
 ::selection {
@@ -94,3 +95,19 @@ table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selectio
 #extra td:nth-last-child(-n+2) {
   width: calc(25% / 2);
 }
+
+#m-sign {
+display: none;
+width: 600px;
+position: sticky;
+top: 10px;
+z-index: 10;
+}
+
+/*
+@media only screen and (min-width: 1450px) {
+#m-sign {
+  display: block;
+}
+}
+*/
