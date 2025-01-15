@@ -4,13 +4,14 @@
 
 html {
   font-family: 'Times New Roman', Times, serif;
+  font-size: 15.5px;
 }
 
 body {
   background-image: url(../imgs/pontinhos.jpg);
   background-size: 300px 300px;
   line-height: 121%;
-  min-width: 800px;
+  min-width: 900px;
 }
 
 ::selection {
@@ -31,7 +32,7 @@ a:hover * {
 
 
 table {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -45,7 +46,7 @@ table {
 }
 
 th, td {
-  background: white;
+  background: rgb(253, 253, 253);
 }
 
 td {
@@ -61,10 +62,13 @@ td img, td video, td iframe {
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  display: block;
 }
 
 .lista td img {
-  max-width: 50px;
+  max-width: 45px;
+  display: unset;
+
 }
 
 table:not(#grafico, #infos) tr:hover td {
