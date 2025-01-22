@@ -101,14 +101,15 @@ table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selectio
 display: none;
 width: 600px;
 position: sticky;
-top: 10px;
+top: 0px;
+left: 0;
 z-index: 10;
 }
 
-/*
+
 @media only screen and (min-width: 1450px) {
 #m-sign {
   display: block;
+  opacity: .9;
 }
 }
-*/
