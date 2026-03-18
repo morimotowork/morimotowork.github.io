@@ -14,6 +14,60 @@ $(document).ready(function () {
 
     let currentCols = 5;
 let currentSquareSize = 0;
+let originalSquareSize = 0;
+
+
+$(document).on('click', '.moldura-form button[type="submit"]', function () {
+
+    // Fade out inputs, selects, row, label — mantém só o h3
+    $('.moldura-form input, .moldura-form select, .moldura-form .moldura-form-row, .moldura-form-check, .moldura-form button, .moldura-shimmer')
+    .fadeOut(400);
+
+    // Troca h3 e deixa visível
+    setTimeout(function () {
+        $('.moldura-form h3').text('Enviado');
+    }, 300);
+
+    // Fade out do h3
+    setTimeout(function () {
+        $('.moldura-form h3').fadeOut(400, function () {
+
+            // Remove form_reveal → form some
+            $('body').removeClass('form_reveal');
+
+            setTimeout(function () {
+
+                // Remove complete → imagens somem, grid encolhe
+                $('body').removeClass('complete');
+
+                $('#grid').css({
+                    'grid-template-columns': `repeat(${currentCols}, ${originalSquareSize}px)`,
+                    'width': (currentCols * originalSquareSize) + 'px'
+                });
+                currentSquareSize = originalSquareSize;
+
+                // Adiciona success
+                $('body').addClass('success');
+
+                // Revela cada <b> com 500ms de intervalo
+                const $frases = $('#frase_afterwards b');
+                $frases.each(function (i) {
+                    const $b = $(this);
+                    setTimeout(function () {
+                        $b.addClass('reveal');
+                    }, i * 1500);
+                });
+
+                // Após todas reveladas + 2000ms, fade out do h2
+                const totalTime = ($frases.length - 1) * 1500 + 2000;
+                setTimeout(function () {
+                    $('#frase_afterwards').fadeOut(1500);
+                }, totalTime);
+
+            }, 800);
+        });
+    }, 1200);
+});
 
     // ── GRID ──────────────────────────────────────────────────────────────
     function buildGrid() {
@@ -24,6 +78,7 @@ const squareSize = mobile ? window.innerWidth * 0.5 : window.innerWidth / 5;
 
 currentCols = cols;
 currentSquareSize = squareSize;
+originalSquareSize = squareSize; // <-- adiciona
 
         let rows = Math.ceil(window.innerHeight / squareSize);
         if (rows % 2 === 0) rows++;
@@ -40,25 +95,56 @@ currentSquareSize = squareSize;
 
         for (let i = 0; i < total; i++) {
             if (i === middleIndex) {
-               $grid.append(`
+              $grid.append(`
     <div class="cell" id="molduramain">
         <div class="moldura-shimmer"></div>
         <p class="hint">Contorne o quadrado com o cursor</p>
         <div class="moldura-form">
+        <h3>Lorem ipsum dolor amed</h3>
+        <div class="moldura-form-row">
             <input type="text" placeholder="Nome" />
             <input type="email" placeholder="E-mail" />
             <div class="moldura-form-row">
-                <select>
-                    <option value="" disabled selected>Nascimento</option>
-                </select>
+                <div class="date-wrapper">
+    <span class="date-placeholder">Nascimento</span>
+    <input type="date" class="nascimento-input" />
+</div>
                 <select>
                     <option value="" disabled selected>Estado</option>
+                    <option>AC</option>
+                    <option>AL</option>
+                    <option>AP</option>
+                    <option>AM</option>
+                    <option>BA</option>
+                    <option>CE</option>
+                    <option>DF</option>
+                    <option>ES</option>
+                    <option>GO</option>
+                    <option>MA</option>
+                    <option>MT</option>
+                    <option>MS</option>
+                    <option>MG</option>
+                    <option>PA</option>
+                    <option>PB</option>
+                    <option>PR</option>
+                    <option>PE</option>
+                    <option>PI</option>
+                    <option>RJ</option>
+                    <option>RN</option>
+                    <option>RS</option>
+                    <option>RO</option>
+                    <option>RR</option>
+                    <option>SC</option>
+                    <option>SP</option>
+                    <option>SE</option>
+                    <option>TO</option>
                 </select>
             </div>
             <label class="moldura-form-check">
                 <input type="checkbox" />
                 <span>Concordo com os <u>Termos de Uso</u> ao enviar meus dados<em>*</em></span>
             </label>
+            </div>
             <button type="submit">Cadastre-se</button>
         </div>
     </div>
@@ -204,8 +290,7 @@ sharpRect = makeRect('#c9a84c', 1.5, null);
     sharpRect.setAttribute('stroke-dashoffset', off);
 
     // 0 → 0.7 durante o progresso, 1.0 só ao completar
-   const shimmerOpacity = p >= 1 ? 1.0 : p * 1;
-
+const shimmerOpacity = p >= 1 ? 0.6 : p * 0.4;
 // 4s no início → 1s ao completar
 const shimmerDuration = p >= 1 ? 3 : 8 - (p * 5);
 
@@ -243,24 +328,20 @@ if (progress >= 1) {
 
     const targetSize = currentSquareSize * 1.7;
 
-    $('svg.shimmer-svg').fadeOut(500, function () {
-        $({ size: currentSquareSize }).animate({ size: targetSize }, {
-            duration: 1000,
-            easing: 'swing',
-            step: function (now) {
-                $('#grid').css({
-                    'grid-template-columns': `repeat(${currentCols}, ${now}px)`,
-                    'width': (currentCols * now) + 'px'
-                });
-            },
-            complete: function () {
-                currentSquareSize = targetSize;
-                setTimeout(function () {
-                    $('body').addClass('form_reveal');
-                }, 1500);
-            }
-        });
+$('svg.shimmer-svg').fadeOut(500, function () {
+    const targetSize = currentSquareSize * 1.7;
+
+    $('#grid').css({
+        'grid-template-columns': `repeat(${currentCols}, ${targetSize}px)`,
+        'width': (currentCols * targetSize) + 'px'
     });
+
+    currentSquareSize = targetSize;
+
+    setTimeout(function () {
+        $('body').addClass('form_reveal');
+    }, 2500);
+});
 }
     }
 
@@ -284,4 +365,12 @@ if (progress >= 1) {
 });
 
     buildGrid();
+
+    $(document).on('change', '.moldura-form select', function () {
+    $(this).toggleClass('has-value', $(this).val() !== '');
+});
+
+    $(document).on('change', '.nascimento-input', function () {
+    $(this).toggleClass('has-value', $(this).val() !== '');
+});
 });
