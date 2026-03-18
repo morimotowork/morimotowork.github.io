@@ -1,0 +1,287 @@
+$(document).ready(function () {
+
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const NUM_BUCKETS = 50;
+    const SPREAD = 1;
+    const MOBILE_THRESHOLD = 120;
+
+    let visited = new Array(NUM_BUCKETS).fill(false);
+    let perimeterLength = 0;
+    let glowRect = null;
+    let sharpRect = null;
+    let isComplete = false;
+    let startDist = null;
+
+    let currentCols = 5;
+let currentSquareSize = 0;
+
+    // ── GRID ──────────────────────────────────────────────────────────────
+    function buildGrid() {
+
+        const mobile = window.innerWidth < 768;
+const cols = mobile ? 3 : 5;
+const squareSize = mobile ? window.innerWidth * 0.5 : window.innerWidth / 5;
+
+currentCols = cols;
+currentSquareSize = squareSize;
+
+        let rows = Math.ceil(window.innerHeight / squareSize);
+        if (rows % 2 === 0) rows++;
+
+        const $grid = $('#grid');
+        $grid.empty();
+        $grid.css({
+            'grid-template-columns': `repeat(${cols}, ${squareSize}px)`,
+            'width': (cols * squareSize) + 'px'
+        });
+
+        const total = cols * rows;
+        const middleIndex = Math.floor(rows / 2) * cols + Math.floor(cols / 2);
+
+        for (let i = 0; i < total; i++) {
+            if (i === middleIndex) {
+               $grid.append(`
+    <div class="cell" id="molduramain">
+        <div class="moldura-shimmer"></div>
+        <p class="hint">Contorne o quadrado com o cursor</p>
+        <div class="moldura-form">
+            <input type="text" placeholder="Nome" />
+            <input type="email" placeholder="E-mail" />
+            <div class="moldura-form-row">
+                <select>
+                    <option value="" disabled selected>Nascimento</option>
+                </select>
+                <select>
+                    <option value="" disabled selected>Estado</option>
+                </select>
+            </div>
+            <label class="moldura-form-check">
+                <input type="checkbox" />
+                <span>Concordo com os <u>Termos de Uso</u> ao enviar meus dados<em>*</em></span>
+            </label>
+            <button type="submit">Cadastre-se</button>
+        </div>
+    </div>
+`);
+            } else {
+                $grid.append('<div class="cell"></div>');
+            }
+        }
+
+        initShimmer();
+    }
+
+    // ── SHIMMER SVG ───────────────────────────────────────────────────────
+    function initShimmer() {
+        const el = document.getElementById('molduramain');
+        if (!el) return;
+
+        const oldSvg = el.querySelector('svg.shimmer-svg');
+        if (oldSvg) oldSvg.remove();
+
+        const r = el.getBoundingClientRect();
+        const pad = 20;
+        perimeterLength = 2 * (r.width + r.height);
+
+        const svg = document.createElementNS(SVG_NS, 'svg');
+        svg.classList.add('shimmer-svg');
+        svg.style.cssText = `
+            position: absolute;
+            top: ${-pad}px; left: ${-pad}px;
+            width: ${r.width + pad * 2}px; height: ${r.height + pad * 2}px;
+            overflow: visible; pointer-events: none; z-index: 5;
+        `;
+
+        const defs = document.createElementNS(SVG_NS, 'defs');
+        const filter = document.createElementNS(SVG_NS, 'filter');
+        filter.id = 'moldura-glow';
+        filter.setAttribute('x', '-100%'); filter.setAttribute('y', '-100%');
+        filter.setAttribute('width', '300%'); filter.setAttribute('height', '300%');
+
+        const blur = document.createElementNS(SVG_NS, 'feGaussianBlur');
+        blur.setAttribute('in', 'SourceGraphic');
+        blur.setAttribute('stdDeviation', '10');
+        blur.setAttribute('result', 'blur');
+
+        const feMerge = document.createElementNS(SVG_NS, 'feMerge');
+        ['blur', 'SourceGraphic'].forEach(src => {
+            const n = document.createElementNS(SVG_NS, 'feMergeNode');
+            n.setAttribute('in', src);
+            feMerge.appendChild(n);
+        });
+
+        filter.appendChild(blur);
+        filter.appendChild(feMerge);
+        defs.appendChild(filter);
+        svg.appendChild(defs);
+
+        function makeRect(stroke, strokeWidth, filterAttr) {
+            const rect = document.createElementNS(SVG_NS, 'rect');
+            rect.setAttribute('x', pad); rect.setAttribute('y', pad);
+            rect.setAttribute('width', r.width); rect.setAttribute('height', r.height);
+            rect.setAttribute('fill', 'none');
+            rect.setAttribute('stroke', stroke);
+            rect.setAttribute('stroke-width', strokeWidth);
+            rect.setAttribute('stroke-dasharray', `0 ${perimeterLength}`);
+            rect.setAttribute('stroke-linecap', 'square');
+            if (filterAttr) rect.setAttribute('filter', filterAttr);
+            svg.appendChild(rect);
+            return rect;
+        }
+
+        glowRect  = makeRect('#7a5c1e', 8,   'url(#moldura-glow)');
+sharpRect = makeRect('#c9a84c', 1.5, null);
+
+        el.appendChild(svg);
+
+        visited = new Array(NUM_BUCKETS).fill(false);
+        isComplete = false;
+        startDist = null;
+    }
+
+    // ── HELPERS ───────────────────────────────────────────────────────────
+    function getMoldura() {
+        const el = document.getElementById('molduramain');
+        return el ? el.getBoundingClientRect() : null;
+    }
+
+    function getAngleBucket(mx, my) {
+        const r = getMoldura();
+        if (!r) return 0;
+        const angle = Math.atan2(my - (r.top + r.height / 2), mx - (r.left + r.width / 2));
+        const normalized = (angle + Math.PI) / (2 * Math.PI);
+        return Math.floor(normalized * NUM_BUCKETS) % NUM_BUCKETS;
+    }
+
+    function distanceToBorder(mx, my) {
+        const r = getMoldura();
+        if (!r) return Infinity;
+        const dx = Math.max(r.left - mx, 0, mx - r.right);
+        const dy = Math.max(r.top  - my, 0, my - r.bottom);
+        if (dx === 0 && dy === 0) {
+            return Math.min(mx - r.left, r.right - mx, my - r.top, r.bottom - my);
+        }
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function getStartDist(mx, my, rect) {
+        const W = rect.width, H = rect.height;
+        const cx = rect.left + W / 2, cy = rect.top + H / 2;
+        const angle = Math.atan2(my - cy, mx - cx);
+        const cos = Math.cos(angle), sin = Math.sin(angle);
+        const hw = W / 2, hh = H / 2;
+        const abscos = Math.abs(cos), abssin = Math.abs(sin || 1e-10);
+
+        let bx, by;
+        if (hw * abssin <= hh * abscos) {
+            bx = cos > 0 ? hw : -hw;
+            by = sin * (hw / (abscos || 1e-10));
+        } else {
+            by = sin > 0 ? hh : -hh;
+            bx = cos * (hh / abssin);
+        }
+
+        const ax = cx + bx, ay = cy + by;
+        const eps = 1;
+
+        if (Math.abs(bx - hw)  < eps) return W + (ay - rect.top);            // right
+        if (Math.abs(by - hh)  < eps) return W + H + (rect.right - ax);      // bottom
+        if (Math.abs(bx + hw)  < eps) return W + H + W + (rect.bottom - ay); // left
+        return ax - rect.left;                                                  // top
+    }
+
+   function setProgress(p) {
+    if (!glowRect || !sharpRect) return;
+
+    const drawn = perimeterLength * p;
+    const gap   = perimeterLength - drawn;
+    const da    = `${drawn} ${gap}`;
+    const off   = startDist !== null ? -startDist : 0;
+
+    glowRect.setAttribute('stroke-dasharray', da);
+    glowRect.setAttribute('stroke-dashoffset', off);
+    sharpRect.setAttribute('stroke-dasharray', da);
+    sharpRect.setAttribute('stroke-dashoffset', off);
+
+    // 0 → 0.7 durante o progresso, 1.0 só ao completar
+   const shimmerOpacity = p >= 1 ? 1.0 : p * 1;
+
+// 4s no início → 1s ao completar
+const shimmerDuration = p >= 1 ? 3 : 8 - (p * 5);
+
+const shimmer = document.querySelector('#molduramain .moldura-shimmer');
+if (shimmer) {
+    shimmer.style.opacity = shimmerOpacity;
+    shimmer.style.animationDuration = `${shimmerDuration}s`;
+}
+
+    const hint = document.querySelector('#molduramain .hint');
+if (hint) hint.style.opacity = Math.max(0, 1 - p * 1.2);
+}
+
+    // ── TRACKING ──────────────────────────────────────────────────────────
+    function track(mx, my, checkDistance) {
+        if (isComplete) return;
+        if (checkDistance && distanceToBorder(mx, my) > MOBILE_THRESHOLD) return;
+
+        if (startDist === null) {
+            const r = getMoldura();
+            if (r) startDist = getStartDist(mx, my, r);
+        }
+
+        const bucket = getAngleBucket(mx, my);
+        for (let s = -SPREAD; s <= SPREAD; s++) {
+            visited[(bucket + s + NUM_BUCKETS) % NUM_BUCKETS] = true;
+        }
+
+        const progress = visited.filter(Boolean).length / NUM_BUCKETS;
+        setProgress(progress);
+
+if (progress >= 1) {
+    isComplete = true;
+    $('body').addClass('complete');
+
+    const targetSize = currentSquareSize * 1.7;
+
+    $('svg.shimmer-svg').fadeOut(500, function () {
+        $({ size: currentSquareSize }).animate({ size: targetSize }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function (now) {
+                $('#grid').css({
+                    'grid-template-columns': `repeat(${currentCols}, ${now}px)`,
+                    'width': (currentCols * now) + 'px'
+                });
+            },
+            complete: function () {
+                currentSquareSize = targetSize;
+                setTimeout(function () {
+                    $('body').addClass('form_reveal');
+                }, 1500);
+            }
+        });
+    });
+}
+    }
+
+    // ── EVENTOS ───────────────────────────────────────────────────────────
+    $(document).on('mousemove', function (e) {
+        track(e.clientX, e.clientY, false);
+    });
+
+    $(document).on('touchmove', function (e) {
+        e.preventDefault();
+        const t = e.originalEvent.touches[0];
+        track(t.clientX, t.clientY, true);
+    });
+
+    // ── RESIZE ────────────────────────────────────────────────────────────
+    let resizeTimer;
+  $(window).on('resize', function () {
+    if (isComplete) return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildGrid, 150);
+});
+
+    buildGrid();
+});
