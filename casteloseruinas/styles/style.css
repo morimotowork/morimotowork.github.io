@@ -13,7 +13,7 @@ font-size: 13px;
 }
 
 body {
-    background-image: url(..../imgs/bg.jpeg);
+    background-image: url(../imgs/bg.jpeg);
     background-size: cover;
     background-attachment: fixed;
     width: 100vw;
