@@ -13,7 +13,7 @@ font-size: 13px;
 }
 
 body {
-    background-image: url(/imgs/bg.jpeg);
+    background-image: url(..../imgs/bg.jpeg);
     background-size: cover;
     background-attachment: fixed;
     width: 100vw;
@@ -199,7 +199,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url(/imgs/moldura.png);
+    background-image: url(../imgs/moldura.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -208,7 +208,7 @@ body {
 }
 
 #molduramain:before {
-    background-image: url(/imgs/BK_capa.jpeg);
+    background-image: url(../imgs/BK_capa.jpeg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
