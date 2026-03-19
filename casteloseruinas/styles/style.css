@@ -111,6 +111,7 @@ span a {
     aspect-ratio: 1 / 1;
     border: 1px solid var(--cor-cell-borda);
     transition: border-color 2.5s ease 0.5s;
+    pointer-events: none;
 }
 
 .complete .cell {
