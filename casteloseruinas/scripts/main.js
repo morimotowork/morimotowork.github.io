@@ -417,7 +417,7 @@ function startSlideshow() {
         } while (imgNum === lastImg);
         lastImg = imgNum;
 
-        const $img = $('<img>').addClass('foto-final').attr('src', `../imgs/fotosfinal/${imgNum}.jpg`);
+        const $img = $('<img>').addClass('foto-final').attr('src', `./imgs/fotosfinal/${imgNum}.jpg`);
         $cell.append($img);
 
         // Fade in
