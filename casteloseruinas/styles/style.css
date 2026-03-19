@@ -1,3 +1,55 @@
+:root {
+
+    /* ── CORES ── */
+    --cor-bg:            #000;
+    --cor-bg-input:      #0a0a0a;
+    --cor-borda-input:   rgb(28, 28, 28);
+    --cor-borda-check:   #555;
+    --cor-texto:         #ecebeb;
+    --cor-placeholder:   #666;
+    --cor-secundario:    #aaa;
+    --cor-erro:          red;
+
+    --cor-hint-bg:       rgba(255, 255, 255, 0.6);
+    --cor-hint-borda:    rgba(255, 255, 255, 0.1);
+    --cor-hint-texto:    #000;
+
+    --cor-cell-borda:         rgba(255, 255, 255, 0.05);
+    --cor-cell-borda-complete: rgba(255, 255, 255, 0.01);
+
+    --cor-btn-texto:     #111;
+    --cor-btn-grad-top:  #9d8448;
+--cor-btn-grad-bot:  #e8cc7a;
+--cor-btn-borda:     #9e7d42;
+
+    --glow-hue:          48deg;
+
+    /* ── ESPAÇAMENTOS ── */
+    --gap-xs:    5px;
+    --gap-sm:   10px;
+    --gap-md:   15px;
+    --gap-lg:   20px;
+    --gap-xl:   35px;
+    --gap-2xl:  60px;
+
+    /* ── INPUTS ── */
+    --input-padding:     12px var(--gap-sm);
+    --input-radius:      5px;
+    --input-font-size:   12px;
+
+    /* ── TRANSIÇÕES ── */
+    --transition-grid:   3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fade:   1s ease;
+    --transition-img:    2s ease 1.5s;
+
+     /* ── FONT SIZES ── */
+    --fs-xs:    0.75rem;   /* ~9px  */
+    --fs-sm:    1rem;      /* ~12px — base */
+    --fs-md:    1.5rem;    /* ~18px — botão */
+    --fs-lg:    1.8rem;    /* ~22px — h3 */
+    --fs-xl:    2.5rem;    /* ~26px — h2 frase */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,18 +59,22 @@
 html, body {
     overflow: hidden;
     font-family: "helvetica-neue-lt-pro", sans-serif;
-font-weight: 500;
-font-style: normal;
-font-size: 12px;
-line-height: 120%;
-color: #aaa;
+    font-weight: 500;
+    font-style: normal;
+    font-size: var(--fs-sm);
+    line-height: 120%;
+    color: var(--cor-secundario);
+}
+
+html {
+    font-size: 12px;
 }
 
 body {
     background-image: url(../imgs/bg.jpeg);
     background-size: cover;
     background-attachment: fixed;
-    background-color: #000;
+    background-color: var(--cor-bg);
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -27,8 +83,12 @@ body {
 }
 
 h3 {
-    font-size: 1.8rem;
+    font-size: var(--fs-lg);
     font-weight: 300;
+}
+
+span a {
+    text-decoration: underline;
 }
 
 #grid {
@@ -36,82 +96,22 @@ h3 {
     grid-template-columns: repeat(5, 20vw);
     width: 100vw;
     transform-origin: center center;
-        transition: grid-template-columns 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+        grid-template-columns var(--transition-grid),
+        width var(--transition-grid);
 }
 
 .cell {
     aspect-ratio: 1 / 1;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--cor-cell-borda);
+    transition: border-color 2.5s ease 0.5s;
 }
 
-
-@property --shimmer {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 33deg;
+.complete .cell {
+    border-color: var(--cor-cell-borda-complete);
 }
 
-@keyframes shimmer {
-    0%   { --shimmer: 0deg; }
-    100% { --shimmer: 360deg; }
-}
-
-#molduramain {
-    position: relative;
-}
-
-.shimmer-wrap {
-    --inset: 28px;
-    position: absolute;
-    inset: calc(var(--inset) * -1);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-radius: 2px;
-    mask-image: conic-gradient(
-        from var(--shimmer, 0deg),
-        transparent 0%,
-        transparent 20%,
-        black 36%,
-        black 45%,
-        transparent 50%,
-        transparent 70%,
-        black 85%,
-        black 95%,
-        transparent 100%
-    );
-    mask-size: cover;
-    mix-blend-mode: plus-lighter;
-    animation: shimmer 1.5s linear infinite both;
-}
-
-.shimmer-wrap::before {
-    content: "";
-    position: absolute;
-    inset: var(--inset);
-    box-shadow:
-        0 0 4px  2px  hsl(45deg 100% 95%),
-        0 0 12px 5px  hsl(45deg 100% 75%),
-        0 0 28px 10px hsl(40deg  90% 55%),
-        0 0 56px 18px hsl(38deg  80% 35%);
-    z-index: -1;
-}
-
-.shimmer-wrap::after {
-    content: "";
-    position: absolute;
-    inset: var(--inset);
-    box-shadow:
-        inset 0 0 0   1px hsl(50deg 100% 95%),
-        inset 0 0 4px 2px hsl(45deg 100% 80%),
-        inset 0 0 10px 4px hsl(42deg 100% 65%);
-    z-index: 2;
-}
-
-:root {
-    --glow-hue: 48deg;
-}
+/* ── SHIMMER ── */
 
 @property --shimmer {
     syntax: "<angle>";
@@ -135,7 +135,6 @@ h3 {
     inset: calc(var(--inset) * -1);
     pointer-events: none;
     opacity: 0;
-    animation: shimmer 10s linear infinite both;
     z-index: 3;
     mask-image: conic-gradient(
         from var(--shimmer, 0deg),
@@ -181,61 +180,67 @@ h3 {
     z-index: 2;
 }
 
+/*
+.shimmer-svg {
+    filter: blur(8px);
+}
+    */
+
+/* ── HINT ── */
+
 .hint {
     position: fixed;
-    bottom: 60px;
+    bottom: var(--gap-2xl);
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, .6);
-    padding: 7px 10px;
+    background: var(--cor-hint-bg);
+    padding: 7px var(--gap-sm);
     border-radius: 999px;
     white-space: nowrap;
     pointer-events: none;
     z-index: 20;
     font-weight: 400;
-    font-size: 1rem;
-    letter-spacing: .02em;
-    border: 1px solid rgba(255, 255, 255, .1);
-    color: #000;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.02em;
+    border: 1px solid var(--cor-hint-borda);
+    color: var(--cor-hint-texto);
     display: none;
 }
 
-.shimmer-svg {
-    filter: blur(8px);
-}
+/* ── COMPLETE ── */
 
-
-
-
-/*** COMPLETE **/
-#molduramain:before, #molduramain:after {
+#molduramain::before,
+#molduramain::after {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url(../imgs/moldura.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0;
-    transition: opacity 2s ease 1s;
+    transition: opacity var(--transition-img);
 }
 
-#molduramain:before {
+#molduramain::after {
+    background-image: url(../imgs/moldura.png);
+}
+
+#molduramain::before {
     background-image: url(../imgs/BK_capa.jpeg);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
-.complete #molduramain:before, .complete #molduramain:after {
+.complete #molduramain::before,
+.complete #molduramain::after {
     opacity: 1;
 }
 
-.complete.form_reveal #molduramain:before {
-    opacity: .1;
-        transition: opacity 2s ease;
+.complete.form_reveal #molduramain::before {
+    opacity: 0.1;
+    transition: opacity 1s ease;
 }
+
+/* ── FORM ── */
 
 .moldura-form {
     position: absolute;
@@ -243,13 +248,13 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 10px;
-    padding: 10px 60px;
+    align-items: center;
+    gap: var(--gap-sm);
+    padding: var(--gap-sm) var(--gap-2xl);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1s ease;
+    transition: opacity var(--transition-fade);
     z-index: 10;
-    align-items: center;
 }
 
 body.form_reveal .moldura-form {
@@ -257,20 +262,60 @@ body.form_reveal .moldura-form {
     pointer-events: all;
 }
 
-.moldura-form input[type="text"], .moldura-form input[type="email"], .moldura-form select, .moldura-form input[type="date"] {
+.moldura-form h3 {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.moldura-form h3.visible {
+    opacity: 1;
+}
+
+.moldura-form input[type="text"],
+.moldura-form input[type="email"],
+.moldura-form input[type="number"],
+.moldura-form input[type="date"],
+.moldura-form select {
     width: 100%;
-    background: #0a0a0a;
-    border: 1px solid #2a2a2a;
-    border-radius: 5px;
-    color: #ccc;
-    padding: 12px 10px;
+    background: var(--cor-bg-input);
+    border: 1px solid var(--cor-borda-input);
+    border-radius: var(--input-radius);
+    color: var(--cor-texto);
+    padding: var(--input-padding);
     outline: none;
     appearance: none;
     -webkit-appearance: none;
     box-sizing: border-box;
     font-weight: 500;
+    font-size: var(--fs-sm);
     font-family: 'helvetica-neue-lt-pro', Helvetica Neue, Helvetica, Arial, sans-serif;
     text-align: center;
+}
+
+.moldura-form input::placeholder {
+    color: var(--cor-placeholder);
+}
+
+.moldura-form select {
+    color: var(--cor-placeholder);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--gap-md) center;
+    cursor: pointer;
+}
+
+.moldura-form select.has-value {
+    color: var(--cor-texto);
+}
+
+.moldura-form input[type="date"] {
+    color: var(--cor-placeholder);
+    color-scheme: dark;
+}
+
+.moldura-form input[type="date"].has-value {
+    color: var(--cor-texto);
 }
 
 .moldura-form input[type="date"]::-webkit-calendar-picker-indicator {
@@ -278,72 +323,15 @@ body.form_reveal .moldura-form {
     cursor: pointer;
 }
 
-.moldura-form input[type="date"] {
-    color: #666;
-    color-scheme: dark;
-}
-
-.moldura-form input[type="date"].has-value {
-    color: #ccc;
-}
-
-.moldura-form input::placeholder {
-    color: #666;
-    text-align: center;
-}
-
-.moldura-form select {
-    color: #666;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    cursor: pointer;
-}
-
-.moldura-form select.has-value {
-    color: #ccc;
-}
-
-.date-wrapper {
-    position: relative;
-    flex: 1;
-}
-
-.date-wrapper input[type="date"] {
-    width: 100%;
-    color: transparent;
-}
-
-.date-wrapper input[type="date"].has-value {
-    color: #ccc;
-}
-
-.date-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    pointer-events: none;
-    font-weight: 500;
-    font-family: 'helvetica-neue-lt-pro', Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 12px;
-}
-
-.date-wrapper input[type="date"].has-value ~ .date-placeholder {
-    display: none;
-}
-
 .moldura-form-row {
     display: flex;
-    width: 100%;
-    gap: 10px;
     flex-direction: column;
+    width: 100%;
+    gap: var(--gap-sm);
 }
 
 .moldura-form-row .moldura-form-row {
-flex-direction: row;
+    flex-direction: row;
 }
 
 .moldura-form-row > * {
@@ -353,73 +341,173 @@ flex-direction: row;
 .moldura-form-check {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--gap-sm);
     cursor: pointer;
-    color: #aaa;
-    font-size: 12px;
+    color: var(--cor-placeholder);
+    font-size: var(--fs-sm);
+    justify-content: center;
+    margin-top: 2px;
 }
 
 .moldura-form-check input[type="checkbox"] {
     width: 18px;
     height: 18px;
     min-width: 18px;
-    border: 1px solid #555;
+    border: 1px solid var(--cor-borda-check);
     border-radius: 3px;
-    background: #0a0a0a;
+    background: var(--cor-bg-input);
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
 }
 
 .moldura-form-check input[type="checkbox"]:checked {
-    background: #aaa;
+    background: var(--cor-secundario);
 }
 
 .moldura-form-check em {
-    color: red;
+    color: var(--cor-erro);
     font-style: normal;
 }
 
 .moldura-form button[type="submit"] {
     width: fit-content;
-    background: #c9a84c;
-    color: #111;
-    padding: 15px;
-    border: none;
+    color: var(--cor-btn-texto);
+    padding: var(--gap-md);
+    border: 1px solid var(--cor-btn-borda);
     cursor: pointer;
-    transition: background 0.2s ease;
-  background: -webkit-gradient(linear, left top, left bottom, from(#a95), to(#fea));
-  border: 1px solid #ba6;
-  border-width: 1px 1px 1px 1px;
-  box-shadow: inset 0px 1px 0px rgba(255,255,255,1),0px 1px 3px rgba(0,0,0,0.3);
-   font-weight: 300;
+    background: linear-gradient(to bottom, var(--cor-btn-grad-top), var(--cor-btn-grad-bot));
+    box-shadow: inset 0px 1px 0px rgba(255,255,255,1), 0px 1px 3px rgba(0,0,0,0.3);
+    font-weight: 300;
     font-family: 'helvetica-neue-lt-pro', Helvetica Neue, Helvetica, Arial, sans-serif;
-        letter-spacing: .01em;
-        font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    font-size: var(--fs-md);
+    opacity: 0.85;
+    transition: background 0.4s ease, opacity 0.6s ease;
 }
 
+.moldura-form button[type="submit"]:hover {
+    opacity: 1;
+    background: linear-gradient(to bottom, #c4a55e, #f5e0a0);
+}
 
-
+/* ── FRASE AFTERWARDS ── */
 
 h2#frase_afterwards {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2.2rem;
-    text-align: center;
-    transition: opacity 2s ease;
-    z-index: 20;
+    font-size: var(--fs-xl);
     font-weight: 300;
     line-height: 125%;
+    text-align: center;
+    transition: opacity 1.5s ease;
+    z-index: 20;
     pointer-events: none;
+    width: 85vw;
+}
+
+h2#frase_afterwards.fadeout {
+    opacity: 0;
 }
 
 h2#frase_afterwards b {
     opacity: 0;
-    transition: opacity .6s ease;
+    transition: opacity 0.6s ease;
 }
 
 h2#frase_afterwards b.reveal {
     opacity: 1;
 }
+
+
+/* ── SLIDESHOW ── */
+.cell {
+    position: relative;
+    overflow: visible;
+}
+
+.cell img.foto-final {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.cell img.foto-final.visible {
+    opacity: 1;
+}
+
+/* ── SHARE BUTTON ── */
+#btn-share {
+    display: none;
+    position: fixed;
+    bottom: var(--gap-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--cor-btn-texto);
+    padding: var(--gap-md) calc(var(--gap-md) * 2);
+    border: 1px solid var(--cor-btn-borda);
+    cursor: pointer;
+    background: linear-gradient(to bottom, var(--cor-btn-grad-top), var(--cor-btn-grad-bot));
+    box-shadow: inset 0px 1px 0px rgba(255,255,255,1), 0px 1px 3px rgba(0,0,0,0.3);
+    font-weight: 300;
+    font-family: 'helvetica-neue-lt-pro', Helvetica Neue, Helvetica, Arial, sans-serif;
+    letter-spacing: 0.01em;
+    font-size: var(--fs-md);
+    opacity: 0;
+    transition: background 0.4s ease, opacity 0.6s ease;
+    z-index: 30;
+    white-space: nowrap;
+    align-items: center;
+    gap: var(--gap-sm);
+}
+
+#btn-share.visible {
+    opacity: 0.85;
+}
+
+#btn-share:hover {
+    opacity: 1;
+    background: linear-gradient(to bottom, #c4a55e, #f5e0a0);
+}
+
+#btn-share .share-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    background-image: url("data:image/svg+xml,%3Csvg width='21' height='27' viewBox='0 0 21 27' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.44531 26.0625C2.30469 26.0625 1.44531 25.7734 0.867188 25.1953C0.289062 24.625 0 23.7734 0 22.6406V10.6523C0 9.51953 0.289062 8.66797 0.867188 8.09766C1.44531 7.51953 2.30469 7.23047 3.44531 7.23047H6.80859V8.67188H3.48047C2.81641 8.67188 2.30859 8.84766 1.95703 9.19922C1.61328 9.54297 1.44141 10.0547 1.44141 10.7344V22.5586C1.44141 23.2383 1.61328 23.75 1.95703 24.0938C2.30859 24.4453 2.81641 24.6211 3.48047 24.6211H16.9102C17.5586 24.6211 18.0586 24.4453 18.4102 24.0938C18.7695 23.75 18.9492 23.2383 18.9492 22.5586V10.7344C18.9492 10.0547 18.7695 9.54297 18.4102 9.19922C18.0586 8.84766 17.5586 8.67188 16.9102 8.67188H13.5938V7.23047H16.9453C18.0859 7.23047 18.9453 7.51953 19.5234 8.09766C20.1016 8.67578 20.3906 9.52734 20.3906 10.6523V22.6406C20.3906 23.7578 20.1016 24.6055 19.5234 25.1836C18.9453 25.7695 18.0859 26.0625 16.9453 26.0625H3.44531ZM10.1953 17.0391C10 17.0391 9.83203 16.9727 9.69141 16.8398C9.55078 16.6992 9.48047 16.5312 9.48047 16.3359V3.71484L9.53906 2.00391L8.47266 3.09375L6.48047 5.16797C6.35547 5.31641 6.19141 5.39062 5.98828 5.39062C5.80078 5.39062 5.64453 5.32812 5.51953 5.20312C5.40234 5.07812 5.34375 4.92578 5.34375 4.74609C5.34375 4.57422 5.41016 4.41797 5.54297 4.27734L9.67969 0.246094C9.76562 0.152344 9.84766 0.0898438 9.92578 0.0585938C10.0117 0.0195312 10.1016 0 10.1953 0C10.2891 0 10.375 0.0195312 10.4531 0.0585938C10.5391 0.0898438 10.625 0.152344 10.7109 0.246094L14.8359 4.27734C14.9766 4.41797 15.0469 4.57422 15.0469 4.74609C15.0469 4.92578 14.9844 5.07812 14.8594 5.20312C14.7344 5.32812 14.5781 5.39062 14.3906 5.39062C14.1953 5.39062 14.0312 5.31641 13.8984 5.16797L11.9062 3.09375L10.8633 2.00391L10.9102 3.71484V16.3359C10.9102 16.5312 10.8398 16.6992 10.6992 16.8398C10.5586 16.9727 10.3906 17.0391 10.1953 17.0391Z' fill='black'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+body.success #btn-share {
+    display: flex;
+}
+
+.moldura-form button[type="submit"],
+#btn-share {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .moldura-form {
+        padding: var(--gap-sm) var(--gap-xl);
+    }
+
+    .moldura-form button[type="submit"] {
+        position: fixed;
+    bottom: 120px;
+    }
+}
+

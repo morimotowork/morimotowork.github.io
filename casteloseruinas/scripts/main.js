@@ -23,21 +23,20 @@ $(document).on('click', '.moldura-form button[type="submit"]', function () {
     $('.moldura-form input, .moldura-form select, .moldura-form .moldura-form-row, .moldura-form-check, .moldura-form button, .moldura-shimmer')
     .fadeOut(400);
 
-    // Troca h3 e deixa visível
-    setTimeout(function () {
-        $('.moldura-form h3').text('Enviado');
-    }, 300);
+setTimeout(function () {
+    $('.moldura-form h3').text('Sucesso');
+    $('.moldura-form h3').addClass('visible');
+}, 400);
 
     // Fade out do h3
     setTimeout(function () {
-        $('.moldura-form h3').fadeOut(400, function () {
-
-            // Remove form_reveal → form some
+$('.moldura-form h3').removeClass('visible');
+setTimeout(function () {
             $('body').removeClass('form_reveal');
 
             setTimeout(function () {
 
-                // Remove complete → imagens somem, grid encolhe
+                // Remove complete → imagens somem, grid encolhe (3s CSS)
                 $('body').removeClass('complete');
 
                 $('#grid').css({
@@ -49,24 +48,27 @@ $(document).on('click', '.moldura-form button[type="submit"]', function () {
                 // Adiciona success
                 $('body').addClass('success');
 
-                // Revela cada <b> com 500ms de intervalo
                 const $frases = $('#frase_afterwards b');
                 $frases.each(function (i) {
                     const $b = $(this);
                     setTimeout(function () {
                         $b.addClass('reveal');
-                    }, i * 1500);
+                    }, 2000 + (i * 1500));
                 });
 
                 // Após todas reveladas + 2000ms, fade out do h2
-                const totalTime = ($frases.length - 1) * 1500 + 2000;
-                setTimeout(function () {
-                    $('#frase_afterwards').fadeOut(1500);
-                }, totalTime);
+                const totalTime = 3000 + ($frases.length - 1) * 1500 + 2000;
+               setTimeout(function () {
+    $('#frase_afterwards').addClass('fadeout');
+    setTimeout(function () {
+        startSlideshow();
+        $('#btn-share').addClass('visible');
+    }, 1500); // espera o fade out do h2 terminar
+}, totalTime);
 
-            }, 800);
-        });
-    }, 1200);
+        }, 600); // era 1200
+    }, 200); // era 300
+}, 1400); // era 2400
 });
 
     // ── GRID ──────────────────────────────────────────────────────────────
@@ -100,15 +102,12 @@ originalSquareSize = squareSize; // <-- adiciona
         <div class="moldura-shimmer"></div>
         <p class="hint">Contorne o quadrado com o cursor</p>
         <div class="moldura-form">
-        <h3>Lorem ipsum dolor amed</h3>
+        <h3></h3>
         <div class="moldura-form-row">
             <input type="text" placeholder="Nome" />
             <input type="email" placeholder="E-mail" />
             <div class="moldura-form-row">
-                <div class="date-wrapper">
-    <span class="date-placeholder">Nascimento</span>
-    <input type="date" class="nascimento-input" />
-</div>
+            <input type="text" class="nascimento-input" placeholder="Nascimento" />
                 <select>
                     <option value="" disabled selected>Estado</option>
                     <option>AC</option>
@@ -141,11 +140,10 @@ originalSquareSize = squareSize; // <-- adiciona
                 </select>
             </div>
             <label class="moldura-form-check">
-                <input type="checkbox" />
-                <span>Concordo com os <u>Termos de Uso</u> ao enviar meus dados<em>*</em></span>
+                <span>Ao enviar meus dados, concordo com os <a id="termos_open">Termos de Uso</a>.<em>*</em></span>
             </label>
             </div>
-            <button type="submit">Cadastre-se</button>
+            <button type="submit">Enviar cadastro</button>
         </div>
     </div>
 `);
@@ -186,7 +184,7 @@ originalSquareSize = squareSize; // <-- adiciona
 
         const blur = document.createElementNS(SVG_NS, 'feGaussianBlur');
         blur.setAttribute('in', 'SourceGraphic');
-        blur.setAttribute('stdDeviation', '10');
+        blur.setAttribute('stdDeviation', '6');
         blur.setAttribute('result', 'blur');
 
         const feMerge = document.createElementNS(SVG_NS, 'feMerge');
@@ -201,22 +199,23 @@ originalSquareSize = squareSize; // <-- adiciona
         defs.appendChild(filter);
         svg.appendChild(defs);
 
-        function makeRect(stroke, strokeWidth, filterAttr) {
-            const rect = document.createElementNS(SVG_NS, 'rect');
-            rect.setAttribute('x', pad); rect.setAttribute('y', pad);
-            rect.setAttribute('width', r.width); rect.setAttribute('height', r.height);
-            rect.setAttribute('fill', 'none');
-            rect.setAttribute('stroke', stroke);
-            rect.setAttribute('stroke-width', strokeWidth);
-            rect.setAttribute('stroke-dasharray', `0 ${perimeterLength}`);
-            rect.setAttribute('stroke-linecap', 'square');
-            if (filterAttr) rect.setAttribute('filter', filterAttr);
-            svg.appendChild(rect);
-            return rect;
-        }
+     function makeRect(stroke, strokeWidth, filterAttr) {
+    const rect = document.createElementNS(SVG_NS, 'rect');
+    rect.setAttribute('x', pad); rect.setAttribute('y', pad);
+    rect.setAttribute('width', r.width); rect.setAttribute('height', r.height);
+    rect.setAttribute('fill', 'none');
+    rect.setAttribute('stroke', stroke);
+    rect.setAttribute('stroke-width', strokeWidth);
+    rect.setAttribute('stroke-dasharray', `0 ${perimeterLength}`);
+    rect.setAttribute('stroke-linecap', 'square');
+    rect.setAttribute('opacity', filterAttr ? '0.75' : '0.95'); // glow mais suave
+    if (filterAttr) rect.setAttribute('filter', filterAttr);
+    svg.appendChild(rect);
+    return rect;
+}
 
-        glowRect  = makeRect('#7a5c1e', 8,   'url(#moldura-glow)');
-sharpRect = makeRect('#c9a84c', 1.5, null);
+glowRect  = makeRect('#8a6828', 3, 'url(#moldura-glow)');
+sharpRect = makeRect('#c9a84c', 0.6, null);     
 
         el.appendChild(svg);
 
@@ -340,7 +339,7 @@ $('svg.shimmer-svg').fadeOut(500, function () {
 
     setTimeout(function () {
         $('body').addClass('form_reveal');
-    }, 2500);
+    }, 2800);
 });
 }
     }
@@ -370,7 +369,79 @@ $('svg.shimmer-svg').fadeOut(500, function () {
     $(this).toggleClass('has-value', $(this).val() !== '');
 });
 
-    $(document).on('change', '.nascimento-input', function () {
-    $(this).toggleClass('has-value', $(this).val() !== '');
+   $(document).on('input', '.nascimento-input', function () {
+    let v = $(this).val().replace(/\D/g, ''); // remove tudo que não é número
+    if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+    if (v.length > 5) v = v.slice(0, 5) + '/' + v.slice(5);
+    $(this).val(v.slice(0, 10)); // limita a DD/MM/AAAA
 });
+
+
+
+// ── SLIDESHOW ──
+function startSlideshow() {
+    const totalImgs = 12;
+    let lastCell = null;
+    let lastImg  = null;
+
+    function getVisibleCells() {
+        return $('.cell:not(#molduramain)').filter(function () {
+            const rect = this.getBoundingClientRect();
+            const cellArea = rect.width * rect.height;
+            if (cellArea === 0) return false;
+
+            const visibleW = Math.max(0, Math.min(rect.right, window.innerWidth)  - Math.max(rect.left, 0));
+            const visibleH = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+            const visibleArea = visibleW * visibleH;
+
+            return (visibleArea / cellArea) >= 0.4;
+        });
+    }
+
+    function showNext() {
+        const $cells = getVisibleCells();
+        if (!$cells.length) return;
+
+        // Célula aleatória diferente da anterior
+        let $cell, attempts = 0;
+        do {
+            $cell = $cells.eq(Math.floor(Math.random() * $cells.length));
+            attempts++;
+        } while ($cell.is(lastCell) && attempts < 10);
+        lastCell = $cell;
+
+        // Imagem aleatória diferente da anterior
+        let imgNum;
+        do {
+            imgNum = Math.floor(Math.random() * totalImgs) + 1;
+        } while (imgNum === lastImg);
+        lastImg = imgNum;
+
+        const $img = $('<img>').addClass('foto-final').attr('src', `/imgs/fotosfinal/${imgNum}.jpg`);
+        $cell.append($img);
+
+        // Fade in
+        setTimeout(() => $img.addClass('visible'), 50);
+
+        // Fade out e remove
+        setTimeout(() => {
+            $img.removeClass('visible');
+            setTimeout(() => $img.remove(), 1000);
+        }, 2500);
+    }
+
+    setInterval(showNext, 1800);
+    showNext();
+}
+
+// ── SHARE BUTTON ──
+$('#btn-share').on('click', function () {
+    if (navigator.share) {
+        navigator.share({
+            title: document.title,
+            url: window.location.href
+        });
+    }
+});
+
 });
