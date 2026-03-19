@@ -19,6 +19,9 @@ let originalSquareSize = 0;
 
 $(document).on('click', '.moldura-form button[type="submit"]', function () {
 
+     if ($('.nascimento-input').hasClass('invalid')) return;
+    if ($('.nascimento-input').val().length > 0 && $('.nascimento-input').val().length < 10) return;
+
     // Fade out inputs, selects, row, label — mantém só o h3
     $('.moldura-form input, .moldura-form select, .moldura-form .moldura-form-row, .moldura-form-check, .moldura-form button, .moldura-shimmer')
     .fadeOut(400);
@@ -100,7 +103,7 @@ originalSquareSize = squareSize; // <-- adiciona
               $grid.append(`
     <div class="cell" id="molduramain">
         <div class="moldura-shimmer"></div>
-        <p class="hint">Contorne o quadrado com o cursor</p>
+        <p class="hint">Contorne o quadrado central</p>
         <div class="moldura-form">
         <h3></h3>
         <div class="moldura-form-row">
@@ -153,6 +156,10 @@ originalSquareSize = squareSize; // <-- adiciona
         }
 
         initShimmer();
+
+        setTimeout(function () {
+    $('.hint').addClass('reveal');
+}, 300);
     }
 
     // ── SHIMMER SVG ───────────────────────────────────────────────────────
@@ -202,7 +209,7 @@ originalSquareSize = squareSize; // <-- adiciona
      function makeRect(stroke, strokeWidth, filterAttr) {
     const rect = document.createElementNS(SVG_NS, 'rect');
     rect.setAttribute('x', pad); rect.setAttribute('y', pad);
-    rect.setAttribute('width', r.width); rect.setAttribute('height', r.height);
+    rect.setAttribute('width', r.width - 1); rect.setAttribute('height', r.height - 1);
     rect.setAttribute('fill', 'none');
     rect.setAttribute('stroke', stroke);
     rect.setAttribute('stroke-width', strokeWidth);
@@ -214,8 +221,8 @@ originalSquareSize = squareSize; // <-- adiciona
     return rect;
 }
 
-glowRect  = makeRect('#8a6828', 3, 'url(#moldura-glow)');
-sharpRect = makeRect('#c9a84c', 0.6, null);     
+glowRect  = makeRect('#f6daa452', 1, 'url(#moldura-glow)');
+sharpRect = makeRect('#c9a84c', .5, null);     
 
         el.appendChild(svg);
 
@@ -225,6 +232,29 @@ sharpRect = makeRect('#c9a84c', 0.6, null);
     }
 
     // ── HELPERS ───────────────────────────────────────────────────────────
+    function resizeSvg() {
+    const el = document.getElementById('molduramain');
+    if (!el) return;
+    const svg = el.querySelector('svg.shimmer-svg');
+    if (!svg) return;
+
+    const r = el.getBoundingClientRect();
+    const pad = 20;
+
+    svg.style.width  = (r.width  + pad * 2) + 'px';
+    svg.style.height = (r.height + pad * 2) + 'px';
+    svg.style.top    = -pad + 'px';
+    svg.style.left   = -pad + 'px';
+
+    perimeterLength = 2 * (r.width + r.height);
+
+    [glowRect, sharpRect].forEach(rect => {
+        if (!rect) return;
+        rect.setAttribute('width',  r.width  - 1);
+        rect.setAttribute('height', r.height - 1);
+    });
+}
+
     function getMoldura() {
         const el = document.getElementById('molduramain');
         return el ? el.getBoundingClientRect() : null;
@@ -299,8 +329,10 @@ if (shimmer) {
     shimmer.style.animationDuration = `${shimmerDuration}s`;
 }
 
-    const hint = document.querySelector('#molduramain .hint');
-if (hint) hint.style.opacity = Math.max(0, 1 - p * 1.2);
+if (p >= 0.7) {
+    $('.hint').removeClass('reveal');
+}
+
 }
 
     // ── TRACKING ──────────────────────────────────────────────────────────
@@ -358,6 +390,7 @@ $('svg.shimmer-svg').fadeOut(500, function () {
     // ── RESIZE ────────────────────────────────────────────────────────────
     let resizeTimer;
   $(window).on('resize', function () {
+        resizeSvg(); 
     if (isComplete) return;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(buildGrid, 150);
@@ -369,11 +402,45 @@ $('svg.shimmer-svg').fadeOut(500, function () {
     $(this).toggleClass('has-value', $(this).val() !== '');
 });
 
-   $(document).on('input', '.nascimento-input', function () {
-    let v = $(this).val().replace(/\D/g, ''); // remove tudo que não é número
+$(document).on('input', '.nascimento-input', function () {
+    let v = $(this).val().replace(/\D/g, '');
+
+    // Limita dia a 31
+    if (v.length >= 2) {
+        let dd = parseInt(v.slice(0, 2));
+        if (dd < 1) dd = 1;
+        if (dd > 31) dd = 31;
+        v = String(dd).padStart(2, '0') + v.slice(2);
+    }
+
+    // Limita mês a 12
+    if (v.length >= 4) {
+        let mm = parseInt(v.slice(2, 4));
+        if (mm < 1) mm = 1;
+        if (mm > 12) mm = 12;
+        v = v.slice(0, 2) + String(mm).padStart(2, '0') + v.slice(4);
+    }
+
+    // Aplica máscaras
     if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
     if (v.length > 5) v = v.slice(0, 5) + '/' + v.slice(5);
-    $(this).val(v.slice(0, 10)); // limita a DD/MM/AAAA
+    v = v.slice(0, 10);
+
+    $(this).val(v);
+    $(this).removeClass('invalid');
+
+    // Valida ano quando completo
+    if (v.length === 10) {
+        const parts = v.split('/');
+        const year  = parseInt(parts[2]);
+        const currentYear = new Date().getFullYear();
+        const minYear = currentYear - 120;
+        const maxYear = currentYear - 10;
+
+        if (year < minYear || year > maxYear) {
+            $(this).addClass('invalid');
+        }
+    }
 });
 
 
@@ -382,19 +449,32 @@ $('svg.shimmer-svg').fadeOut(500, function () {
 function startSlideshow() {
     const totalImgs = 12;
     let lastCell = null;
-    let lastImg  = null;
+    let queue = [];
+
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function nextImg() {
+        if (!queue.length) {
+            queue = shuffle(Array.from({ length: totalImgs }, (_, i) => i + 1));
+        }
+        return queue.shift();
+    }
 
     function getVisibleCells() {
         return $('.cell:not(#molduramain)').filter(function () {
             const rect = this.getBoundingClientRect();
             const cellArea = rect.width * rect.height;
             if (cellArea === 0) return false;
-
             const visibleW = Math.max(0, Math.min(rect.right, window.innerWidth)  - Math.max(rect.left, 0));
             const visibleH = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-            const visibleArea = visibleW * visibleH;
-
-            return (visibleArea / cellArea) >= 0.4;
+            return (visibleW * visibleH / cellArea) >= 0.4;
         });
     }
 
@@ -410,20 +490,11 @@ function startSlideshow() {
         } while ($cell.is(lastCell) && attempts < 10);
         lastCell = $cell;
 
-        // Imagem aleatória diferente da anterior
-        let imgNum;
-        do {
-            imgNum = Math.floor(Math.random() * totalImgs) + 1;
-        } while (imgNum === lastImg);
-        lastImg = imgNum;
-
+        const imgNum = nextImg();
         const $img = $('<img>').addClass('foto-final').attr('src', `./imgs/fotosfinal/${imgNum}.jpg`);
         $cell.append($img);
 
-        // Fade in
         setTimeout(() => $img.addClass('visible'), 50);
-
-        // Fade out e remove
         setTimeout(() => {
             $img.removeClass('visible');
             setTimeout(() => $img.remove(), 1000);
@@ -442,6 +513,17 @@ $('#btn-share').on('click', function () {
             url: window.location.href
         });
     }
+});
+
+
+//TERMOS E CONDICOES
+$(document).on('click', '#termos_open', function (e) {
+    e.preventDefault();
+    $('#termos-overlay').addClass('reveal');
+});
+
+$(document).on('click', '#termos-close', function () {
+    $('#termos-overlay').removeClass('reveal');
 });
 
 });

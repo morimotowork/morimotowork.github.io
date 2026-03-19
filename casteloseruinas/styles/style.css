@@ -10,8 +10,8 @@
     --cor-secundario:    #aaa;
     --cor-erro:          red;
 
-    --cor-hint-bg:       rgba(255, 255, 255, 0.6);
-    --cor-hint-borda:    rgba(255, 255, 255, 0.1);
+    --cor-hint-bg:       rgb(28, 28, 28);
+    --cor-hint-borda:    rgba(255, 255, 255, 0.05);
     --cor-hint-texto:    #000;
 
     --cor-cell-borda:         rgba(255, 255, 255, 0.05);
@@ -47,7 +47,7 @@
     --fs-sm:    1rem;      /* ~12px — base */
     --fs-md:    1.5rem;    /* ~18px — botão */
     --fs-lg:    1.8rem;    /* ~22px — h3 */
-    --fs-xl:    2.5rem;    /* ~26px — h2 frase */
+    --fs-xl:    2.2rem;    /* ~26px — h2 frase */
 }
 
 * {
@@ -89,6 +89,12 @@ h3 {
 
 span a {
     text-decoration: underline;
+}
+
+/* ── TEXT SELECTION ── */
+::selection {
+    background: #444;
+    color: #ddd;
 }
 
 #grid {
@@ -180,11 +186,11 @@ span a {
     z-index: 2;
 }
 
-/*
+
 .shimmer-svg {
-    filter: blur(8px);
+    filter: drop-shadow(0px 0px 10px rgb(255, 233, 190, .8));
 }
-    */
+
 
 /* ── HINT ── */
 
@@ -193,18 +199,21 @@ span a {
     bottom: var(--gap-2xl);
     left: 50%;
     transform: translateX(-50%);
-    background: var(--cor-hint-bg);
-    padding: 7px var(--gap-sm);
+    padding: 8px var(--gap-sm);
     border-radius: 999px;
     white-space: nowrap;
     pointer-events: none;
     z-index: 20;
     font-weight: 400;
-    font-size: var(--fs-sm);
     letter-spacing: 0.02em;
     border: 1px solid var(--cor-hint-borda);
-    color: var(--cor-hint-texto);
-    display: none;
+    background-color: #0a0a0a;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.hint.reveal {
+    opacity: 1;
 }
 
 /* ── COMPLETE ── */
@@ -293,6 +302,11 @@ body.form_reveal .moldura-form {
     text-align: center;
 }
 
+.moldura-form input.invalid {
+    border-color: var(--cor-erro);
+    color: var(--cor-erro);
+}
+
 .moldura-form input::placeholder {
     color: var(--cor-placeholder);
 }
@@ -347,6 +361,8 @@ body.form_reveal .moldura-form {
     font-size: var(--fs-sm);
     justify-content: center;
     margin-top: 2px;
+    text-align: center;
+    line-height: 130%;
 }
 
 .moldura-form-check input[type="checkbox"] {
@@ -444,7 +460,7 @@ h2#frase_afterwards b.reveal {
 }
 
 /* ── SHARE BUTTON ── */
-#btn-share {
+#termos-close, #btn-share {
     display: none;
     position: fixed;
     bottom: var(--gap-2xl);
@@ -468,11 +484,21 @@ h2#frase_afterwards b.reveal {
     gap: var(--gap-sm);
 }
 
+#termos-close {
+    opacity: 1;
+    display: block;
+    top: var(--gap-2xl);
+    left: var(--gap-2xl);
+    padding: var(--gap-md) calc(var(--gap-md) * 1.5);
+    bottom: unset;
+    transform: none;
+}
+
 #btn-share.visible {
     opacity: 0.85;
 }
 
-#btn-share:hover {
+#termos-close:hover, #btn-share:hover {
     opacity: 1;
     background: linear-gradient(to bottom, #c4a55e, #f5e0a0);
 }
@@ -500,6 +526,100 @@ body.success #btn-share {
 
 
 
+/* ── TERMOS OVERLAY ── */
+#termos-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.97);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .65s ease;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+#termos-overlay.reveal {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#termos-content {
+    width: 100%;
+    max-width: 80ch;
+    padding: var(--gap-2xl) var(--gap-lg);
+}
+
+
+#termos-close .termos-close-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+    vertical-align: middle;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M19 12H5M5 12L12 19M5 12L12 5' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#termos-text h4 {
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: var(--gap-md);
+        letter-spacing: 0.02em;
+
+}
+
+#termos-text h5 {
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-top: var(--gap-lg);
+    margin-bottom: var(--gap-sm);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+#termos-text p {
+    color: var(--cor-secundario);
+    line-height: 135%;
+    margin-bottom: var(--gap-sm);
+}
+
+#termos-text ul {
+    color: var(--cor-secundario);
+    padding-left: var(--gap-lg);
+    margin-bottom: var(--gap-sm);
+    list-style: square;
+}
+
+#termos-text ul li {
+    margin-bottom: var(--gap-xs);
+}
+
+#termos-text strong {
+    color: var(--cor-texto);
+    font-weight: 600;
+}
+
+#termos-content:before {
+    content: '';
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: calc(var(--gap-2xl));
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    pointer-events: none;
+    background: #000000;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 20%, rgba(253, 250, 245, 0) 100%);
+}
+
+
+
 @media screen and (max-width: 767px) {
     .moldura-form {
         padding: var(--gap-sm) var(--gap-xl);
@@ -509,5 +629,24 @@ body.success #btn-share {
         position: fixed;
     bottom: 60px;
     }
+
+    #termos-content {
+        padding: var(--gap-lg) var(--gap-lg);
+        padding-bottom: calc(var(--gap-2xl) * 2);
+    }
+
+    #termos-content:before {
+    height: calc(var(--gap-2xl) * 2);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 40%, rgba(253, 250, 245, 0) 100%);
 }
+
+    #termos-close {
+            top: unset;
+    bottom: var(--gap-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    }
+}
+
+
 
