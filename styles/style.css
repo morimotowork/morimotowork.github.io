@@ -97,6 +97,33 @@ table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selectio
   width: calc(25% / 2);
 }
 
+.topmessage {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 5.5rem;
+  line-height: 80%;
+  font-weight: bold;
+  letter-spacing: -3px;
+  color: #ff007f;
+  z-index: 1000;
+  text-align: left;
+  pointer-events: none;
+
+  animation: blinker 1.5s infinite steps(2, start);
+  animation: blinker 1.5s infinite steps(1, start);
+
+}
+
+@keyframes blinker {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+
+
 #m-sign {
 display: none;
 width: 600px;
@@ -113,3 +140,4 @@ z-index: 10;
   opacity: .9;
 }
 }
+
