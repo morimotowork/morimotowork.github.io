@@ -101,7 +101,7 @@ table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selectio
   position: fixed;
   top: 20px;
   left: 20px;
-  font-size: 8.5rem;
+  font-size: 7rem;
   line-height: 80%;
   font-weight: bold;
   letter-spacing: -3px;
