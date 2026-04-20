@@ -105,7 +105,7 @@ table:not(#grafico, #infos) tr:not(:first-child, :nth-child(2)):hover ::selectio
   line-height: 80%;
   font-weight: bold;
   letter-spacing: -3px;
-  color: #ff007f;
+  color: var(--amarelinho);
   z-index: 1000;
   text-align: left;
   pointer-events: none;
