@@ -5,7 +5,10 @@
 html {
   font-family: 'Times New Roman', Times, serif;
   font-size: 15.5px;
+    -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
+
 
 body {
   background-image: url(../imgs/pontinhos.jpg);
